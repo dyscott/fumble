@@ -20,7 +20,7 @@ Run the following commands in the backend directory to start the server:
 ```bash
 cd server
 go mod download
-go run main.go serve
+go run .
 ```
 ## How we Built it
 ### Frontend
