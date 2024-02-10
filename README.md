@@ -33,9 +33,13 @@ To host the app on mobile devices, we utilize Xcode and Apple Developer tools on
 
 ## Challenges we ran into
 
+For this project, we navigated languages, frameworks, and development tools that were entirely unfamiliar to us at the beginning of the hackathon. We had to figure out how to integrate the different part of our mobile app development, which involved four users, into one cohesive product. By using branches and separating various pages and components of the project, we overcame these challenges and effectively developed Fumble.
+
 ## Accomplishments that we're proud of
+For many on our team, this was our first experience creating a mobile app, and we are grateful for the opportunity to do so. We are also proud to have developed an app that facilitates socialization and collaboration for CS majors, helping combat the challenges associated with such a difficult major.
 
 ## What we learned
 
 The entire team was unfamiliar with Flutter before starting this project, so we embarked on learning a new framework and programming language. For many of us, this was our first experience developing a mobile app, providing an opportunity to familiarize ourselves with Apple's code development tools and Xcode. We found the simplicity of the Flutter framework appealing and appreciated its capabilities in enabling us to create such a beautiful mobile app.
+
 ## What's next for Fumble
