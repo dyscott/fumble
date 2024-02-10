@@ -38,40 +38,48 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: SafeArea(
+        child: Stack(
+          alignment: Alignment.topLeft,
           children: [
-            const Text('Who are you?',
-                style: TextStyle(
-                  fontSize: 36.0,
-                  fontWeight: FontWeight.bold,
-                )),
-            const SizedBox(height: 20),
-            GestureDetector(
-              onTap: pickImage,
-              child: CircleAvatar(
-                backgroundColor: Colors.grey,
-                radius: 80,
-                backgroundImage: image != null ? FileImage(image!) : null,
-                child: image == null
-                    ? const Icon(
-                        Icons.add_a_photo,
-                        size: 40,
-                        color: Colors.white,
-                      )
-                    : null,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 40.0),
-              child: TextField(
-                decoration: const InputDecoration(
-                  hintText: 'Name',
-                  border: OutlineInputBorder(),
-                ),
-                onChanged: updateName,
+            const BackButton(),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Who are you?',
+                      style: TextStyle(
+                        fontSize: 36.0,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  const SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: pickImage,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey,
+                      radius: 80,
+                      backgroundImage: image != null ? FileImage(image!) : null,
+                      child: image == null
+                          ? const Icon(
+                              Icons.add_a_photo,
+                              size: 40,
+                              color: Colors.white,
+                            )
+                          : null,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Name',
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: updateName,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
