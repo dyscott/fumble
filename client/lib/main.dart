@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pocketbase/pocketbase.dart';
+//import 'package:pocketbase/pocketbase.dart';
 import 'package:provider/provider.dart';
 
 import 'auth.dart';
+import 'pages/create/page1.dart';
 
 void main() async {
   // Load shared preferences and initialize PocketBase
@@ -33,29 +34,17 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isAuth = Provider.of<AuthProvider>(context).isAuthenticated;
-    final userId = pb.authStore.model?.id;
-    final signOut = Provider.of<AuthProvider>(context).signOut;
 
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Hello World!'),
-            Text('Are you signed in? $isAuth'),
-            ElevatedButton(
-                onPressed: () => {
-                      // Navigate to the Auth screen
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => const Auth()))
-                    },
-                child: const Text('Sign In / Register')),
-            ElevatedButton(onPressed: signOut, child: const Text('Sign Out')),
+            const Text('Fumble'),
+            const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.only(top: 20),
-              child: isAuth
-                  ? DisplayUser(userId: userId!)
-                  : const Text('Not signed in'),
+              child: isAuth ? const Go() : const SignIn(),
             ),
           ],
         ),
@@ -64,25 +53,69 @@ class Home extends StatelessWidget {
   }
 }
 
-class DisplayUser extends StatelessWidget {
-  final String userId;
-  const DisplayUser({required this.userId, super.key});
+class SignIn extends StatelessWidget {
+  const SignIn({super.key});
 
-  Future<RecordModel> getUser() {
-    return pb.collection('users').getOne(userId);
-  }
-  
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<RecordModel>(
-      future: getUser(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return Text('User: ${snapshot.data!.data['username']}');
-        } else {
-          return const CircularProgressIndicator();
-        }
-      },
+    final auth = Provider.of<AuthProvider>(context);
+    return ElevatedButton(
+        onPressed: () {
+          // Sign in
+          auth.signIn();
+        },
+        child: const Text('Sign In / Register'));
+  }
+}
+
+class Go extends StatelessWidget {
+  const Go({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CreateProfilePage1()),
+            );
+          },
+          child: const Text('Go'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            auth.signOut();
+          },
+          child: const Text('Sign Out'),
+        ),
+      ],
     );
   }
 }
+
+// class DisplayUser extends StatelessWidget {
+//   final String userId;
+//   const DisplayUser({required this.userId, super.key});
+
+//   Future<RecordModel> getUser() {
+//     return pb.collection('users').getOne(userId);
+//   }
+  
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder<RecordModel>(
+//       future: getUser(),
+//       builder: (context, snapshot) {
+//         if (snapshot.connectionState == ConnectionState.done) {
+//           return Text('User: ${snapshot.data?.data['username']}');
+//         } else {
+//           return const CircularProgressIndicator();
+//         }
+//       },
+//     );
+//   }
+// }
