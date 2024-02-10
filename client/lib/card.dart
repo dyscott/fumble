@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class ExpandableBioCard extends StatefulWidget {
   final String avatarUrl;
   final String name;
