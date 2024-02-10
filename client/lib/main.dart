@@ -11,6 +11,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:fumble/home.dart';
 import 'package:fumble/swipelist.dart';
 import 'package:provider/provider.dart';
 import 'auth.dart';

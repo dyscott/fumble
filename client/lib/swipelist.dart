@@ -7,7 +7,7 @@ class SwipeList extends StatelessWidget {
 
   List<ExpandableBioCard> getCards() {
     return [
-      ExpandableBioCard(
+      const ExpandableBioCard(
         avatarUrl: 'https://media.discordapp.net/attachments/1181082647833890876/1202646104345284648/cowgan.png?ex=65d770f7&is=65c4fbf7&hm=c923634fe9f009750a1b65cef2588b8a0321b1511d00da2a0af949ace819b999&format=webp&quality=lossless&width=1536&height=1024&',
         name: 'Gretta',
         bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
