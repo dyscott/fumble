@@ -1,66 +1,97 @@
 import 'package:flutter/material.dart';
 
-class CardPage extends StatefulWidget {
+class ExpandableBioCard extends StatefulWidget {
+  final String avatarUrl;
+  final String name;
+  final String bio;
+
+  const ExpandableBioCard({super.key, 
+    required this.avatarUrl,
+    required this.name,
+    required this.bio,
+  });
+
   @override
-  _CardPageState createState() => _CardPageState();
+  _ExpandableBioCardState createState() => _ExpandableBioCardState();
 }
 
-class _CardPageState extends State<CardPage> {
+class _ExpandableBioCardState extends State<ExpandableBioCard> {
+  bool _expandBio = false;
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Fumble'),
+  @override
+Widget build(BuildContext context) {
+  return Stack(
+    children: [
+      Image.network(
+        widget.avatarUrl,
+        height: 550,
+        width: double.infinity,
+        fit: BoxFit.cover,
+        alignment: Alignment.topCenter, // Align the image to the top
       ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          // Add your image widget here
-          Image.asset(
-            'assets/images/gretta-fumble.png', // Replace 'assets/background_image.jpg' with your image path
-            fit: BoxFit.cover,
+      Positioned(
+        bottom: 0,
+        left: 0,
+        right: 0,
+        child: Container(
+          padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
+            ),
           ),
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end, // Align content to the bottom
-              children: [
-                const Text(
-                  'Gretta',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white, // Text color
-                  ),
-                ),
-                SizedBox(height: 40.0), // Add more space between text and buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align buttons to the ends
-                  children: [
-                    // Add left-aligned button
-                    IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: () {
-                        // Handle the action when the left button is pressed
-                      },
-                      color: Colors.white, // Icon color
-                    ),
-                    // Add right-aligned button
-                    IconButton(
-                      icon: Icon(Icons.check),
-                      onPressed: () {
-                        // Handle the action when the right button is pressed
-                      },
-                      color: Colors.white, // Icon color
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.name,
+                style: const TextStyle(
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 10.0,
+                      color: Colors.black,
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _expandBio = !_expandBio;
+                  });
+                },
+                child: Text(
+                  _expandBio ? widget.bio : '${widget.bio.substring(0, 50)}...',
+                  style: const TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
-    );
-  }
+    ],
+  );
 }
+
+}
+
+// void main() {
+//   runApp(MaterialApp(
+//     home: Scaffold(
+//       body: ExpandableBioCard(
+//         avatarUrl: 'https://example.com/avatar.png',
+//         name: 'Gretta',
+//         bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+//       ),
+//     ),
+//   ));
+// }
