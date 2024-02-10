@@ -23,41 +23,39 @@ class _CardPageState extends State<CardPage> {
           Padding(
             padding: EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end, // Align content to the bottom
               children: [
                 Text(
-                  'regrett.able',
+                  'Gretta',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.white, // Text color
                   ),
-                  textAlign: TextAlign.left,
                 ),
-                SizedBox(height: 40.0), // Add more space between text and button
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle the action when the button is pressed
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-                      child: Text(
-                        'X',
-                        style: TextStyle(
-                          fontSize: 24.0,
-                        ),
-                      ),
+                SizedBox(height: 40.0), // Add more space between text and buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align buttons to the ends
+                  children: [
+                    // Add left-aligned button
+                    IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        // Handle the action when the left button is pressed
+                      },
+                       backgroundColor: Colors.deepOrange
+                      color: Colors.white, // Icon color
                     ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple, // Background color of button
-                      foregroundColor: Colors.white, // Text color of button
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
+                    // Add right-aligned button
+                    IconButton(
+                      icon: Icon(Icons.check),
+                      onPressed: () {
+                        // Handle the action when the right button is pressed
+                      },
+                      color: Colors.white, // Icon color
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
