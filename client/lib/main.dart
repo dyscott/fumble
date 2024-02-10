@@ -1,8 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:fumble/temphome.dart';
+import 'package:pocketbase/pocketbase.dart';
 import 'package:provider/provider.dart';
 import 'auth.dart';
+import 'common.dart';
 import 'pages/create/page1.dart';
 
 void main() {
@@ -20,14 +23,12 @@ class MainApp extends StatelessWidget {
     final loading = Provider.of<AuthProvider>(context).loading;
 
     return MaterialApp(
-      // title: 'Fumble',
-      // home: EditProfilePage(),
-      
+        // title: 'Fumble',
+        // home: EditProfilePage(),
+
         home: loading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-            : const Landing()
-            
-    );
+            : const Landing());
   }
 }
 
@@ -82,16 +83,44 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context);
-    return IntrinsicWidth(child: DiscordSignInButton(onPressed: () {
-          // Sign in
-          auth.signIn();
-        },
+    return IntrinsicWidth(child: DiscordSignInButton(
+      onPressed: () {
+        // Sign in
+        auth.signIn();
+      },
     ));
   }
 }
 
-class Go extends StatelessWidget {
+class Go extends StatefulWidget {
   const Go({super.key});
+
+  @override
+  State<Go> createState() => _GoState();
+}
+
+class _GoState extends State<Go> {
+  @override
+  void initState() {
+    super.initState();
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    auth.syncUser();
+  }
+
+  void go(BuildContext context, RecordModel user) {
+    if (user.data['profileComplete'] == true) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const TempHome()),
+      );
+    } else {
+      final model = CreateProfileModel(userId: user.id);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CreateProfilePage1(model: model)),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,21 +128,32 @@ class Go extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const CreateProfilePage1()),
-            );
-          },
-          child: const Text('Go'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            auth.signOut();
-          },
-          child: const Text('Sign Out'),
+        SizedBox(
+            width: 150,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.yellow[100],
+              ),
+              onPressed: (auth.user == null)
+                  ? null
+                  : () {
+                      go(context, auth.user!);
+                    },
+              child: const Text('Go'),
+            )),
+        SizedBox(
+          width: 150,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.black,
+              backgroundColor: Colors.yellow[100],
+            ),
+            onPressed: () {
+              auth.signOut();
+            },
+            child: const Text('Sign Out'),
+          ),
         ),
       ],
     );

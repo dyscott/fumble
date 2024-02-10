@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:fumble/pages/create/common.dart';
+import 'package:fumble/common.dart';
+
+import 'page5.dart';
 
 class CreateProfilePage4 extends StatefulWidget {
-  const CreateProfilePage4({super.key});
+  final CreateProfileModel model;
+
+  const CreateProfilePage4({super.key, required this.model});
 
   @override
   State<CreateProfilePage4> createState() => _CreateProfilePage4State();
 }
 
 class _CreateProfilePage4State extends State<CreateProfilePage4> {
+  List<List<dynamic>> boxes = [
+    [
+      'I attest that Fumble is not a dating app.',
+      false,
+    ],
+    [
+      'I agree to not use Fumble to find a romantic partner.',
+      false,
+    ],
+    [
+      'I agree to not use Fumble for any non-academic purposes.',
+      false,
+    ],
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,49 +35,58 @@ class _CreateProfilePage4State extends State<CreateProfilePage4> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const Text(
-                'All Set?',
+                'Terms and Conditions',
                 style: TextStyle(
                   fontSize: 32.0,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(
-                  height: 40.0), // Add more space between text and button
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Handle the action when the Next button is pressed
-                    // For example, you can navigate to the next page
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Colors.purple, // background color of button
-                    foregroundColor: Colors.white, // text color of button
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
-                  child: const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-                    child: Text(
-                      'Go!',
-                      style: TextStyle(
-                        fontSize: 24.0,
-                      ),
-                    ),
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const Text(
+                  'Please agree to the following:',
+                  style: TextStyle(
+                    fontSize: 20.0,
                   ),
                 ),
-              ),
+                const SizedBox(height: 20),
+                ...boxes
+                    .map(
+                      (List<dynamic> box) => CheckboxListTile(
+                        title: Text(
+                          box[0],
+                          style: const TextStyle(fontSize: 16.0),
+                        ),
+                        value: box[1],
+                        controlAffinity: ListTileControlAffinity.leading,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            box[1] = value!;
+                          });
+                        },
+                      ),
+                    )
+                    .toList(),
+              ]),
+              const SizedBox(height: 0),
             ],
           ),
         ),
       ),
+      floatingActionButton: (boxes.every((box) => box[1] == true))
+          ? NextButton(onPressed: () {
+              // Navigate to the next page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CreateProfilePage5(model: widget.model)),
+              );
+            })
+          : null,
     );
   }
 }
