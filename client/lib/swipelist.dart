@@ -17,6 +17,7 @@ class SwipeList extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    
     final List<Card> multipliedCards =
         getCards().expand((card) => List.generate(1, (_) => Card(child: card))).toList();
 
@@ -34,6 +35,7 @@ class SwipeList extends StatelessWidget {
     );
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // Set to false to remove debug banner
       home: Scaffold(
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
