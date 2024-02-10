@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
     const ProfilePage(
       avatarUrl:
           'https://media.discordapp.net/attachments/1181082647833890876/1202646104345284648/cowgan.png?ex=65d770f7&is=65c4fbf7&hm=c923634fe9f009750a1b65cef2588b8a0321b1511d00da2a0af949ace819b999&format=webp&quality=lossless&width=1536&height=1024&',
-      name: 'Daniel Kogan',
+      name: 'Daniel',
       bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     ),
     ChatPage(), // Replace Text widget with your ChatPage component
