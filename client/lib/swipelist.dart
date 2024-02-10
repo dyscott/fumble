@@ -9,8 +9,8 @@ class SwipeList extends StatelessWidget {
     return [
       const ExpandableBioCard(
         avatarUrl: 'https://media.discordapp.net/attachments/1181082647833890876/1202646104345284648/cowgan.png?ex=65d770f7&is=65c4fbf7&hm=c923634fe9f009750a1b65cef2588b8a0321b1511d00da2a0af949ace819b999&format=webp&quality=lossless&width=1536&height=1024&',
-        name: 'Daniel I',
-        bio: 'CSE/AMS double major who took comp geo + graph theory for fun. 5.0 GPA.',
+        name: 'Cowgan',
+        bio: 'Moo Moo Moo Moo. Need grass. PhD Student researching cowputational geometry, lmk if you are in CSE 599.',
       ),
     ];
   }
@@ -55,14 +55,14 @@ class SwipeList extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     child: IconButton(
-                      icon: Icon(Icons.close),
+                      icon: const Icon(Icons.close),
                       onPressed: () {
                         swipingCardDeck.swipeLeft();
                       },
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(width: 16.0), // Add space between buttons
+                  const SizedBox(width: 16.0), // Add space between buttons
                   // Right-aligned button
                   Container(
                     decoration: BoxDecoration(
@@ -70,7 +70,7 @@ class SwipeList extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     child: IconButton(
-                      icon: Icon(Icons.check),
+                      icon: const Icon(Icons.check),
                       onPressed: () {
                         swipingCardDeck.swipeRight();
                       },
