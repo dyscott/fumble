@@ -33,6 +33,7 @@ class MainApp extends StatelessWidget {
     final loading = Provider.of<AuthProvider>(context).loading;
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // Set to false to remove debug banner
       // title: 'Fumble',
       home: HomePage(),
       
@@ -52,6 +53,7 @@ class Landing extends StatelessWidget {
     final isAuth = Provider.of<AuthProvider>(context).isAuthenticated;
 
     return Scaffold(
+      
       body: Stack(
         fit: StackFit.expand,
         children: [
