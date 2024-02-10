@@ -1,37 +1,107 @@
 import 'package:flutter/material.dart';
 
-class SelectOptions extends StatefulWidget {
+class PreferenceForm extends StatefulWidget {
   @override
-  _SelectOptionsState createState() => _SelectOptionsState();
+  _PreferenceFormState createState() => _PreferenceFormState();
 }
 
-class _SelectOptionsState extends State<SelectOptions> {
+class _PreferenceFormState extends State<PreferenceForm> {
   String? _selectedOption;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Select Options'),
-      ),
       body: Center(
-        child: DropdownButton<String>(
-          hint: Text('Select an option'),
-          value: _selectedOption,
-          onChanged: (String? newValue) {
-            setState(() {
-              _selectedOption = newValue!;
-            });
-          },
-          items: <String>['Option 1', 'Option 2', 'Option 3']
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(bottom: 8.0),
+              child: Padding(
+                padding: EdgeInsets.all(16.0), // Added padding to the text
+                child: Text(
+                  'What are you looking for?',
+                  style: TextStyle(
+                    fontSize: 36.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 16.0),
+              child: RadioListTile<String>(
+                title: const Text(
+                  'CSE 316',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                value: 'CSE316',
+                groupValue: _selectedOption,
+                onChanged: (String? value) {
+                  setState(() {
+                    _selectedOption = value;
+                  });
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: RadioListTile<String>(
+                title: const Text(
+                  'CSE 373',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                value: 'CSE373',
+                groupValue: _selectedOption,
+                onChanged: (String? value) {
+                  setState(() {
+                    _selectedOption = value;
+                  });
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: RadioListTile<String>(
+                title: const Text(
+                  'CSE 304',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                value: 'CSE304',
+                groupValue: _selectedOption,
+                onChanged: (String? value) {
+                  setState(() {
+                    _selectedOption = value;
+                  });
+                },
+              ),
+            ),
+            RadioListTile<String>(
+              title: const Text(
+                'CSE 416',
+                style: TextStyle(fontSize: 18.0),
+              ),
+              value: 'CSE416',
+              groupValue: _selectedOption,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedOption = value;
+                });
+              },
+            ),
+          ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Navigate to the next screen or perform any desired action
+        },
+        label: Text('Next', style: TextStyle(color: Colors.white)),
+        icon: Icon(Icons.arrow_forward, color: Colors.white),
+        backgroundColor: Colors.purple,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

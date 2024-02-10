@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'package:pocketbase/pocketbase.dart';
 import 'package:provider/provider.dart';
-
 import 'auth.dart';
+import 'perferenceform.dart';
 import 'pages/create/page1.dart';
 
 void main() async {
@@ -22,6 +22,11 @@ class MainApp extends StatelessWidget {
     final loading = Provider.of<AuthProvider>(context).loading;
 
     return MaterialApp(
+      // title: 'Fumble',
+      // home: PreferenceForm(),
+      // );
+
+
         home: loading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
             : const Home());
