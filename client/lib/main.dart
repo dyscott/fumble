@@ -33,7 +33,7 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       // title: 'Fumble',
-      home: SwipeList(),
+      home: HomePage(),
       
         // home: loading
         //     ? const Scaffold(body: Center(child: CircularProgressIndicator()))
