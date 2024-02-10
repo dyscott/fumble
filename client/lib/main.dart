@@ -26,12 +26,14 @@ class MainApp extends StatelessWidget {
     final loading = Provider.of<AuthProvider>(context).loading;
 
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         // title: 'Fumble',
-        // home: EditProfilePage(),
+        home: HomePage()
 
-        home: loading
-            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-            : const Landing());
+        // home: loading
+        //     ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+        //     : const Landing());
+        );
   }
 }
 
