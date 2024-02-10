@@ -113,35 +113,6 @@ List<Card> getCards() {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-<<<<<<< HEAD
-                // Left-aligned button
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.purple,
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {
-                      // Handle the action when the left button is pressed
-                    },
-                    color: Colors.white,
-                  ),
-                ),
-                // Right-aligned button
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.purple,
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: IconButton(
-                    icon: Icon(Icons.check),
-                    onPressed: () {
-                      // Handle the action when the right button is pressed
-                    },
-                    color: Colors.white,
-                  ),
-=======
                 const Text(
                   'Gretta',
                   style: TextStyle(
@@ -171,7 +142,6 @@ List<Card> getCards() {
                       color: Colors.white, // Icon color
                     ),
                   ],
->>>>>>> 26ae6fd254d0e4c5ebcd62ea26ea45f6a2dae193
                 ),
               ],
             ),
