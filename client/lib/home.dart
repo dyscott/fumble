@@ -4,6 +4,8 @@ import 'swipelist.dart'; // Import your SwipeList component here
 import 'profilepage.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -15,9 +17,9 @@ class _HomePageState extends State<HomePage> {
     const SwipeList(),
     const ProfilePage(
       avatarUrl:
-          'https://media.discordapp.net/attachments/1181082647833890876/1202646104345284648/cowgan.png?ex=65d770f7&is=65c4fbf7&hm=c923634fe9f009750a1b65cef2588b8a0321b1511d00da2a0af949ace819b999&format=webp&quality=lossless&width=1536&height=1024&',
+          'https://cdn.discordapp.com/attachments/1181082647833890876/1205963843701047427/FA7223D0-AED6-4532-89FD-B340D7DC2C7E_1_105_c.jpeg?ex=65da485a&is=65c7d35a&hm=0479f565398735a3f5fe87deaa20e876fd297c3703919cacc22b4e68bd62fa36&',
       name: 'Daniel',
-      bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      bio: 'CSE/AMS double major who took comp geo + graph theory for fun. 5.0 GPA.',
     ),
     ChatPage(), // Replace Text widget with your ChatPage component
   ];

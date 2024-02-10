@@ -64,7 +64,7 @@ Widget build(BuildContext context) {
                       ],
                     ),
                   ),
-                  SizedBox(height: 8), // Add vertical space between name and bio
+                  const SizedBox(height: 8), // Add vertical space between name and bio
                   GestureDetector(
                     onTap: () {
                       setState(() {

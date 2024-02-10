@@ -72,7 +72,7 @@ class DiscordSignInButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF5865F2), // Discord's primary color
+        backgroundColor: const Color(0xFF5865F2), // Discord's primary color
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),

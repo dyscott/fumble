@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ConfirmPage extends StatefulWidget {
+  const ConfirmPage({super.key});
+
   @override
   _ConfirmPageState createState() => _ConfirmPageState();
 }
