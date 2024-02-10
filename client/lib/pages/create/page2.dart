@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'common.dart';
+import '../../common.dart';
 import 'page3.dart';
 
 class CreateProfilePage2 extends StatefulWidget {
-  const CreateProfilePage2({super.key});
+  final CreateProfileModel model;
+
+  const CreateProfilePage2({super.key, required this.model});
 
   @override
   State<CreateProfilePage2> createState() => _CreateProfilePage2State();
 }
 
 class _CreateProfilePage2State extends State<CreateProfilePage2> {
-  String? _selectedOption;
-
   final List<List<String>> options = [
     ['CSE 373', 'cse373'],
     ['CSE 316', 'cse316'],
@@ -21,6 +21,8 @@ class _CreateProfilePage2State extends State<CreateProfilePage2> {
 
   @override
   Widget build(BuildContext context) {
+    var model = widget.model;
+
     return Scaffold(
       body: TopBackButton(
         child: Column(
@@ -49,10 +51,10 @@ class _CreateProfilePage2State extends State<CreateProfilePage2> {
                       style: const TextStyle(fontSize: 18.0),
                     ),
                     value: option[1],
-                    groupValue: _selectedOption,
+                    groupValue: widget.model.course,
                     onChanged: (String? value) {
                       setState(() {
-                        _selectedOption = value;
+                        widget.model.course = value!;
                       });
                     },
                   ),
@@ -61,13 +63,16 @@ class _CreateProfilePage2State extends State<CreateProfilePage2> {
           ],
         ),
       ),
-      floatingActionButton: NextButton(onPressed: () {
-        // Navigate to the next page
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const CreateProfilePage3()),
-        );
-      }),
+      floatingActionButton: (model.course == null)
+          ? null
+          : NextButton(onPressed: () {
+              // Navigate to the next page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CreateProfilePage3(model: model)),
+              );
+            }),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

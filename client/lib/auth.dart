@@ -10,6 +10,8 @@ class AuthProvider extends ChangeNotifier {
 
   bool get loading => _loading;
 
+  RecordModel? user;
+
   AuthProvider() {
     initPB();
   }
@@ -23,7 +25,7 @@ class AuthProvider extends ChangeNotifier {
       initial: prefs.getString('pb_auth'),
     );
 
-    pb = PocketBase('http://192.168.0.72:8090', authStore: store);
+    pb = PocketBase('http://127.0.0.1:8090', authStore: store);
 
     pb.authStore.onChange.listen((event) {
       notifyListeners();
@@ -36,10 +38,21 @@ class AuthProvider extends ChangeNotifier {
   bool get isAuthenticated => pb.authStore.isValid;
 
   Future<void> signIn() async {
-    await pb.collection('users').authWithOAuth2('discord', (url) async {
+    final res = await pb.collection('users').authWithOAuth2('discord', (url) async {
       // or use something like flutter_custom_tabs to make the transitions between native and web content more seamless
       await launchUrl(url);
     });
+    user = res.record;
+
+    notifyListeners();
+  }
+
+  Future<void> syncUser() async {
+    try {
+    user = await pb.collection('users').getOne(pb.authStore.model.id);
+    } catch (e) {
+      user = null;
+    }
     notifyListeners();
   }
 

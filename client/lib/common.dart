@@ -1,12 +1,40 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class Profile {
-  File? image;
-  String? name;
+import 'auth.dart';
 
-  Profile({this.name});
+class CreateProfileModel {
+  String userId;
+  String name;
+  File? avatar;
+  String bio = '';
+  String? course;
+  File? galleryImage;
+
+  CreateProfileModel(
+      {required this.userId,
+      this.name = '',
+      this.avatar,
+      this.bio = '',
+      this.course,
+      this.galleryImage});
+
+  Future<void> uploadProfile() async {
+    await pb.collection('users').update(userId, body: {
+      'name': name,
+      'bio': bio,
+      'classes': course,
+      'profileComplete': true,
+    }, files: [
+      http.MultipartFile.fromBytes('avatar', await avatar!.readAsBytes(),
+          filename: avatar!.path.split('/').last),
+      http.MultipartFile.fromBytes(
+          'gallery', await galleryImage!.readAsBytes(),
+          filename: galleryImage!.path.split('/').last),
+    ]);
+  }
 }
 
 class NextButton extends StatelessWidget {
