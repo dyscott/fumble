@@ -28,12 +28,11 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         // title: 'Fumble',
-        home: HomePage()
+        // home: HomePage()
 
-        // home: loading
-        //     ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-        //     : const Landing());
-        );
+        home: loading
+            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+            : const Landing());
   }
 }
 
@@ -91,12 +90,14 @@ class SignIn extends StatelessWidget {
     return IntrinsicWidth(
       child: Column(
         children: [
-          (!kIsWeb) ? DiscordSignInButton(
-            onPressed: () {
-              // Sign in
-              auth.signInDiscord();
-            },
-          ) : const SizedBox(),
+          (!kIsWeb)
+              ? DiscordSignInButton(
+                  onPressed: () {
+                    // Sign in
+                    auth.signInDiscord();
+                  },
+                )
+              : const SizedBox(),
           const SizedBox(height: 20),
           SizedBox(
             width: 250,
