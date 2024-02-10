@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'auth.dart';
 import 'common.dart';
 import 'pages/create/page1.dart';
+import 'home.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -24,11 +25,12 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
         // title: 'Fumble',
-        // home: EditProfilePage(),
+        home: HomePage()
 
-        home: loading
-            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-            : const Landing());
+        // home: loading
+        //     ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+        //     : const Landing());
+        );
   }
 }
 
@@ -117,7 +119,8 @@ class _GoState extends State<Go> {
       final model = CreateProfileModel(userId: user.id);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => CreateProfilePage1(model: model)),
+        MaterialPageRoute(
+            builder: (context) => CreateProfilePage1(model: model)),
       );
     }
   }
