@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'auth.dart';
+import 'messagelist.dart';
 import 'pages/create/page1.dart';
 
 void main() async {
@@ -23,13 +24,13 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       // title: 'Fumble',
-      // home: PreferenceForm(),
-      // );
-
-
+      // home: ChatPage(),
+      
         home: loading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-            : const Home());
+            : const Home()
+            
+    );
   }
 }
 
