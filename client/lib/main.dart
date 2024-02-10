@@ -24,12 +24,14 @@ class MainApp extends StatelessWidget {
     final loading = Provider.of<AuthProvider>(context).loading;
 
     return MaterialApp(
-        // title: 'Fumble',
-        home: CreateProfilePage3(),);
-
-        // home: loading
-        //     ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-        //     : const Home());
+      // title: 'Fumble',
+      // home: EditProfilePage(),
+      
+        home: loading
+            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+            : const Home()
+            
+    );
   }
 }
 

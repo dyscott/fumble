@@ -10,7 +10,7 @@ class _CardPageState extends State<CardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fumble'),
+        title: const Text('Fumble'),
       ),
       body: Stack(
         fit: StackFit.expand,
@@ -26,7 +26,7 @@ class _CardPageState extends State<CardPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end, // Align content to the bottom
               children: [
-                Text(
+                const Text(
                   'Gretta',
                   style: TextStyle(
                     fontSize: 20.0,
