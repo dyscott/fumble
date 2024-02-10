@@ -10,12 +10,6 @@
 .svn/
 migrate_working_dir/
 
-# iOS
-ios/
-ios_bak/
-
-android/
-
 # IntelliJ related
 *.iml
 *.ipr

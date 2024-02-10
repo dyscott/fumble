@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 //import 'package:pocketbase/pocketbase.dart';
 import 'package:provider/provider.dart';
@@ -41,24 +43,32 @@ class Home extends StatelessWidget {
     final isAuth = Provider.of<AuthProvider>(context).isAuthenticated;
 
     return Scaffold(
-      body: DecoratedBox(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/images/giraffe.jpg'),
-                fit: BoxFit.cover)),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Fumble'),
-              const SizedBox(height: 20),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: isAuth ? const Go() : const SignIn(),
-              ),
-            ],
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/coding.jpg', fit: BoxFit.cover),
+          BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2.5, sigmaY: 2.5),
+            child: Container(
+              color: Colors.black.withOpacity(0.25),
+            ),
           ),
-        ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(children: [Text('Fumble',
+                    style: TextStyle(fontSize: 60, color: Colors.yellow[600], fontWeight: FontWeight.bold)),
+                    Text('Not a dating app', style: TextStyle(fontSize: 20, color: Colors.yellowAccent[100]))
+                ]),
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: isAuth ? const Go() : const SignIn(),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
