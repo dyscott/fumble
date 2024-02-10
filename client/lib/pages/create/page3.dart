@@ -42,7 +42,7 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
         body: TopBackButton(
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -54,12 +54,10 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 20),
                   MultiPhotoUpload(
                     image: model.galleryImage,
                     setImage: setImage,
                   ),
-                  const SizedBox(height: 20),
                   TextField(
                     maxLines: 5,
                     decoration: const InputDecoration(
@@ -110,44 +108,45 @@ class MultiPhotoUpload extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-    final size = width > height ? height : width;
-
-    return SizedBox(
-      width: size * .5,
-      height: size * .5,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: (image == null)
-            ? GestureDetector(
-                onTap: setImage,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.grey,
-                    shape: BoxShape.rectangle,
+    return Expanded(
+      child: Align(
+        alignment: Alignment.center,
+        child: AspectRatio(
+          aspectRatio: 1.0, // 1.0 for a square aspect ratio
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: (image == null)
+                ? GestureDetector(
+                    onTap: setImage,
+                    child: AspectRatio(
+                      aspectRatio: 1.0,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          shape: BoxShape.rectangle,
+                        ),
+                        child: const Icon(
+                          Icons.add_a_photo,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ))
+                : Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      image: image != null
+                          ? DecorationImage(
+                              image: kIsWeb
+                                  ? Image.network(image!.path).image
+                                  : FileImage(File(image!.path)),
+                              fit: BoxFit.cover)
+                          : null,
+                      shape: BoxShape.rectangle,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.add_a_photo,
-                    size: 40,
-                    color: Colors.white,
-                  ),
-                ),
-              )
-            : Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  image: image != null
-                      ? DecorationImage(
-                          image: kIsWeb
-                              ? Image.network(image!.path).image
-                              : FileImage(File(image!.path)),
-                          fit: BoxFit.cover,
-                        )
-                      : null,
-                  shape: BoxShape.rectangle,
-                ),
-              ),
+          ),
+        ),
       ),
     );
   }
