@@ -35,15 +35,6 @@ class _CardPageState extends State<CardPage> {
                   ),
                   textAlign: TextAlign.left,
                 ),
-                Text(
-                  'CSE 416',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white, // Text color
-                  ),
-                  textAlign: TextAlign.right,
-                ),
                 SizedBox(height: 40.0), // Add more space between text and button
                 Center(
                   child: ElevatedButton(
