@@ -89,12 +89,14 @@ class SignIn extends StatelessWidget {
     return IntrinsicWidth(
       child: Column(
         children: [
-          (!kIsWeb) ? DiscordSignInButton(
-            onPressed: () {
-              // Sign in
-              auth.signInDiscord();
-            },
-          ) : const SizedBox(),
+          (!kIsWeb)
+              ? DiscordSignInButton(
+                  onPressed: () {
+                    // Sign in
+                    auth.signInDiscord();
+                  },
+                )
+              : const SizedBox(),
           const SizedBox(height: 20),
           SizedBox(
             width: 250,
