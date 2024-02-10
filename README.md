@@ -43,3 +43,6 @@ For many on our team, this was our first experience creating a mobile app, and w
 The entire team was unfamiliar with Flutter before starting this project, so we embarked on learning a new framework and programming language. For many of us, this was our first experience developing a mobile app, providing an opportunity to familiarize ourselves with Apple's code development tools and Xcode. We found the simplicity of the Flutter framework appealing and appreciated its capabilities in enabling us to create such a beautiful mobile app.
 
 ## What's next for Fumble
+
+While we are satisfied with how Fumble came out, we recognize the potential for enhancements to elevate it even further. Our next steps include integrating a feedback form directly within the app. This will enable us to seamlessly gather valuable insights and suggestions from the community, allowing us to refine and optimize Fumble based on user input. Moreover, we envision enhancing the matchmaking algorithm by incorporating machine learning techniques. By training an AI model on user interactions—such as swipes to the right or left—we aim to make Fumble's matching system more intuitive and tailored to individual preferences. These improvements represent our commitment to continuous refinement, ensuring Fumble remains a dynamic and user-centric platform.
+
