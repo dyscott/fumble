@@ -23,7 +23,7 @@ class _CreateProfilePage4State extends State<CreateProfilePage4> {
       false,
     ],
     [
-      'I agree to not use Fumble for any non-academic purposes.',
+      'I agree to not use Fumble for any other non-academic purposes.',
       false,
     ],
   ];

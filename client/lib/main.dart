@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'auth.dart';
 import 'common.dart';
 import 'pages/create/page1.dart';
+import 'pages/signin.dart';
+import 'pages/signup.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -83,12 +86,52 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context);
-    return IntrinsicWidth(child: DiscordSignInButton(
-      onPressed: () {
-        // Sign in
-        auth.signIn();
-      },
-    ));
+    return IntrinsicWidth(
+      child: Column(
+        children: [
+          (!kIsWeb) ? DiscordSignInButton(
+            onPressed: () {
+              // Sign in
+              auth.signInDiscord();
+            },
+          ) : const SizedBox(),
+          const SizedBox(height: 20),
+          SizedBox(
+            width: 250,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.yellow[100],
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignInPage()),
+                );
+              },
+              child: const Text('Sign in with Email'),
+            ),
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            width: 250,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Colors.yellow[100],
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignUpPage()),
+                );
+              },
+              child: const Text('Sign up with Email'),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -117,7 +160,8 @@ class _GoState extends State<Go> {
       final model = CreateProfileModel(userId: user.id);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => CreateProfilePage1(model: model)),
+        MaterialPageRoute(
+            builder: (context) => CreateProfilePage1(model: model)),
       );
     }
   }
@@ -142,6 +186,7 @@ class _GoState extends State<Go> {
                     },
               child: const Text('Go'),
             )),
+        const SizedBox(height: 20),
         SizedBox(
           width: 150,
           child: ElevatedButton(

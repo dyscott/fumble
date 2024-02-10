@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -23,7 +24,7 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
     );
     if (pickedImage != null) {
       setState(() {
-        widget.model.galleryImage = File(pickedImage.path);
+        widget.model.galleryImage = pickedImage;
       });
     }
   }
@@ -43,7 +44,7 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
@@ -101,16 +102,21 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
 }
 
 class MultiPhotoUpload extends StatelessWidget {
-  final File? image;
+  final XFile? image;
   final VoidCallback setImage;
 
-  const MultiPhotoUpload({super.key, required this.image, required this.setImage});
+  const MultiPhotoUpload(
+      {super.key, required this.image, required this.setImage});
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final size = width > height ? height : width;
+
     return SizedBox(
-      height: MediaQuery.of(context).size.width,
-      width: MediaQuery.of(context).size.width,
+      width: size * .5,
+      height: size * .5,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: (image == null)
@@ -133,7 +139,9 @@ class MultiPhotoUpload extends StatelessWidget {
                   color: Colors.grey,
                   image: image != null
                       ? DecorationImage(
-                          image: FileImage(image!),
+                          image: kIsWeb
+                              ? Image.network(image!.path).image
+                              : FileImage(File(image!.path)),
                           fit: BoxFit.cover,
                         )
                       : null,
