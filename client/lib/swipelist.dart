@@ -20,6 +20,19 @@ class SwipeList extends StatelessWidget {
     final List<Card> multipliedCards =
         getCards().expand((card) => List.generate(1, (_) => Card(child: card))).toList();
 
+    final swipingCardDeck = SwipingDeck<Card>(
+      cardDeck: multipliedCards,
+      onDeckEmpty: () => debugPrint("Card deck empty"),
+      onLeftSwipe: (Card card) => debugPrint("Swiped left!"),
+      onRightSwipe: (Card card) => debugPrint("Swiped right!"),
+      swipeThreshold: MediaQuery.of(context).size.width / 4,
+      minimumVelocity: 10000,
+      cardWidth: 400,
+      rotationFactor: 0.25 / 3.14,
+      swipeAnimationDuration: const Duration(milliseconds: 100),
+      disableDragging: false,
+    );
+
     return MaterialApp(
       home: Scaffold(
         body: Stack(
@@ -29,23 +42,50 @@ class SwipeList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
-                    child: SwipingCardDeck(
-                      cardDeck: multipliedCards,
-                      onDeckEmpty: () => debugPrint("Card deck empty"),
-                      onLeftSwipe: (Card card) => debugPrint("Swiped left!"),
-                      onRightSwipe: (Card card) => debugPrint("Swiped right!"),
-                      swipeThreshold: MediaQuery.of(context).size.width / 4,
-                      minimumVelocity: 10000,
-                      cardWidth: 400,
-                      rotationFactor: 0.25 / 3.14,
-                      swipeAnimationDuration: const Duration(milliseconds: 100),
-                      disableDragging: false,
+                    child: swipingCardDeck,
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 16.0,
+              left: 16.0,
+              right: 16.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Left-aligned button
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.purple,
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        swipingCardDeck.swipeLeft();
+                      },
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(width: 16.0), // Add space between buttons
+                  // Right-aligned button
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.purple,
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.check),
+                      onPressed: () {
+                        swipingCardDeck.swipeRight();
+                      },
+                      color: Colors.white,
                     ),
                   ),
                 ],
               ),
             ),
-            
           ],
         ),
       ),
