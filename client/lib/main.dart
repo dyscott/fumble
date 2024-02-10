@@ -24,6 +24,7 @@ class MainApp extends StatelessWidget {
     final loading = Provider.of<AuthProvider>(context).loading;
 
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         // title: 'Fumble',
         home: HomePage()
 
