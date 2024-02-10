@@ -21,17 +21,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loading = Provider.of<AuthProvider>(context).loading;
+    var loading = Provider.of<AuthProvider>(context).loading;
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         // title: 'Fumble',
-        home: HomePage()
-
-        // home: loading
-        //     ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-        //     : const Landing());
-        );
+        // home: HomePage()
+        home: loading
+            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+            : const Landing());
   }
 }
 
