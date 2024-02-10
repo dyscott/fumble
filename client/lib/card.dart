@@ -25,7 +25,7 @@ class _ExpandableBioCardState extends State<ExpandableBioCard> {
         children: [
           Image.network(
             widget.avatarUrl,
-            height: 600,
+            height: 625,
             width: double.infinity,
             fit: BoxFit.cover,
           ),
@@ -48,7 +48,7 @@ class _ExpandableBioCardState extends State<ExpandableBioCard> {
                   Text(
                     widget.name,
                     style: const TextStyle(
-                      fontSize: 20.0,
+                      fontSize: 32.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       shadows: [
@@ -68,7 +68,7 @@ class _ExpandableBioCardState extends State<ExpandableBioCard> {
                     child: Text(
                       _expandBio ? widget.bio : '${widget.bio.substring(0, 50)}...',
                       style: const TextStyle(
-                        fontSize: 14.0,
+                        fontSize: 20.0,
                         color: Colors.white,
                       ),
                     ),
