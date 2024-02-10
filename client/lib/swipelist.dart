@@ -1,120 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:swiping_card_deck/swiping_card_deck.dart';
+import 'card.dart';
 
 class SwipeList extends StatelessWidget {
   const SwipeList({Key? key}) : super(key: key);
 
-  List<Card> getCards() {
+  List<ExpandableBioCard> getCards() {
     return [
-      Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-    
-            Image.asset(
-              'assets/images/gretta-fumble.png',
-              height: 500,
-              width: 200,
-              fit: BoxFit.cover,
-            ),
-            Container(
-              padding: EdgeInsets.all(8.0),
-              child: const Text(
-                'Gretta',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(8.0),
-              color: Colors.purple,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Bio',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    'Some bio text here...',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              padding: EdgeInsets.all(8.0),
-              color: Colors.purple,
-              child: Text(
-                'Bro',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Image.asset(
-              'assets/images/giraffe.jpg',
-              height: 400,
-              width: 200,
-              fit: BoxFit.cover,
-            ),
-            Container(
-              padding: EdgeInsets.all(8.0),
-              color: Colors.purple,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Bio',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    'Some bio text here...',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+      ExpandableBioCard(
+        avatarUrl: 'https://media.discordapp.net/attachments/1181082647833890876/1202646104345284648/cowgan.png?ex=65d770f7&is=65c4fbf7&hm=c923634fe9f009750a1b65cef2588b8a0321b1511d00da2a0af949ace819b999&format=webp&quality=lossless&width=1536&height=1024&',
+        name: 'Gretta',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       ),
     ];
   }
-
+  
   @override
   Widget build(BuildContext context) {
     final List<Card> multipliedCards =
-        getCards().expand((card) => List.generate(1, (_) => card)).toList();
+        getCards().expand((card) => List.generate(1, (_) => Card(child: card))).toList();
 
     return MaterialApp(
       home: Scaffold(
