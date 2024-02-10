@@ -1,3 +1,13 @@
+// import 'package:flutter/material.dart';
+// import 'card.dart'; // Import your CardPage widget
+// import 'swipelist.dart';
+// void main() {
+//   runApp(MaterialApp(
+//     home: SwipeList(), // Set CardPage as the home screen
+//   ));
+// }
+
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
