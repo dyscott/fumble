@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'pages/create/page3.dart';
+import 'pages/create/page4.dart';
 import 'package:provider/provider.dart';
 import 'auth.dart';
-import 'messagelist.dart';
 import 'pages/create/page1.dart';
 
 void main() async {
@@ -23,14 +24,12 @@ class MainApp extends StatelessWidget {
     final loading = Provider.of<AuthProvider>(context).loading;
 
     return MaterialApp(
-      // title: 'Fumble',
-      // home: ChatPage(),
-      
-        home: loading
-            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-            : const Home()
-            
-    );
+        // title: 'Fumble',
+        home: CreateProfilePage3(),);
+
+        // home: loading
+        //     ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+        //     : const Home());
   }
 }
 
@@ -56,9 +55,15 @@ class Home extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(children: [Text('Fumble',
-                    style: TextStyle(fontSize: 60, color: Colors.yellow[600], fontWeight: FontWeight.bold)),
-                    Text('Not a dating app', style: TextStyle(fontSize: 20, color: Colors.yellowAccent[100]))
+                Column(children: [
+                  Text('Fumble',
+                      style: TextStyle(
+                          fontSize: 60,
+                          color: Colors.yellow[600],
+                          fontWeight: FontWeight.bold)),
+                  Text('Not a dating app',
+                      style: TextStyle(
+                          fontSize: 20, color: Colors.yellowAccent[100]))
                 ]),
                 Container(
                   margin: const EdgeInsets.only(top: 20),
@@ -79,12 +84,11 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context);
-    return ElevatedButton(
-        onPressed: () {
+    return IntrinsicWidth(child: DiscordSignInButton(onPressed: () {
           // Sign in
           auth.signIn();
         },
-        child: const Text('Sign In / Register'));
+    ));
   }
 }
 
@@ -101,7 +105,8 @@ class Go extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const CreateProfilePage1()),
+              MaterialPageRoute(
+                  builder: (context) => const CreateProfilePage1()),
             );
           },
           child: const Text('Go'),

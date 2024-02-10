@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pocketbase/pocketbase.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,7 +23,7 @@ class AuthProvider extends ChangeNotifier {
       initial: prefs.getString('pb_auth'),
     );
 
-    pb = PocketBase('http://127.0.0.1:8090', authStore: store);
+    pb = PocketBase('http://192.168.0.72:8090', authStore: store);
 
     pb.authStore.onChange.listen((event) {
       notifyListeners();
@@ -50,29 +49,40 @@ class AuthProvider extends ChangeNotifier {
   }
 }
 
-class Auth extends StatelessWidget {
-  const Auth({super.key});
+class DiscordSignInButton extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  const DiscordSignInButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign In / Register'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFF5865F2), // Discord's primary color
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
         ),
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0)
       ),
-      body: Center(
-        child: Column(
+      child: Padding(
+        padding: const EdgeInsets.all(0.0),
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-                onPressed: auth.signIn,
-                child: const Text('Sign in with Discord'))
+            Image.asset(
+              'assets/images/discord-logo.png', // Replace with your Discord logo image asset
+              height: 30.0,
+            ),
+            const SizedBox(width: 10.0),
+            const Text(
+              'Sign in with Discord',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
           ],
         ),
       ),
