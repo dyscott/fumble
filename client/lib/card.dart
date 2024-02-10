@@ -10,7 +10,7 @@ class _CardPageState extends State<CardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fumble'),
+        title: const Text('Fumble'),
       ),
       body: Stack(
         fit: StackFit.expand,
@@ -26,7 +26,7 @@ class _CardPageState extends State<CardPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end, // Align content to the bottom
               children: [
-                Text(
+                const Text(
                   'Gretta',
                   style: TextStyle(
                     fontSize: 20.0,
@@ -44,8 +44,8 @@ class _CardPageState extends State<CardPage> {
                       onPressed: () {
                         // Handle the action when the left button is pressed
                       },
-                       backgroundColor: Colors.deepOrange
-                      color: Colors.white, // Icon color
+                       backgroundColor: Colors.deepOrange,
+                      color: Colors.white, // Icon color,
                     ),
                     // Add right-aligned button
                     IconButton(
