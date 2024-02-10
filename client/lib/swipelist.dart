@@ -35,22 +35,14 @@ class SwipeList extends StatelessWidget {
 
     return MaterialApp(
       home: Scaffold(
-        body: Stack(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Positioned.fill(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: swipingCardDeck,
-                  ),
-                ],
-              ),
+            Expanded(
+              child: swipingCardDeck,
             ),
-            Positioned(
-              bottom: 16.0,
-              left: 16.0,
-              right: 16.0,
+            Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
