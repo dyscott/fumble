@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
             currentIndex: _selectedIndex,
-            selectedItemColor: Colors.purple,
+            selectedItemColor: Color.fromRGBO(156, 39, 176, 1),
             onTap: _onItemTapped,
           ),
         ),
