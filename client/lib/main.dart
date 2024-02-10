@@ -1,15 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'pages/create/page3.dart';
-import 'pages/create/page4.dart';
 import 'package:provider/provider.dart';
 import 'auth.dart';
 import 'pages/create/page1.dart';
 
-void main() async {
-  // Load shared preferences and initialize PocketBase
-
+void main() {
   runApp(ChangeNotifierProvider(
     create: (context) => AuthProvider(),
     child: const MainApp(),
@@ -29,14 +25,14 @@ class MainApp extends StatelessWidget {
       
         home: loading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-            : const Home()
+            : const Landing()
             
     );
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class Landing extends StatelessWidget {
+  const Landing({super.key});
 
   @override
   Widget build(BuildContext context) {
