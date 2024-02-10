@@ -1,6 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'card.dart'; // Import your CardPage widget
 // import 'swipelist.dart';
+import 'profilepage.dart';
 // void main() {
 //   runApp(MaterialApp(
 //     home: SwipeList(), // Set CardPage as the home screen
