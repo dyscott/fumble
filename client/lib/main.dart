@@ -44,7 +44,7 @@ class Home extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset('assets/images/coding.jpg', fit: BoxFit.cover),
+          Image.asset('assets/images/giraffe.jpg', fit: BoxFit.cover),
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 2.5, sigmaY: 2.5),
             child: Container(

@@ -44,8 +44,7 @@ class _CardPageState extends State<CardPage> {
                       onPressed: () {
                         // Handle the action when the left button is pressed
                       },
-                       backgroundColor: Colors.deepOrange,
-                      color: Colors.white, // Icon color,
+                      color: Colors.white, // Icon color
                     ),
                     // Add right-aligned button
                     IconButton(
