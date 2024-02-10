@@ -4,6 +4,8 @@ import 'swipelist.dart'; // Import your SwipeList component here
 import 'profilepage.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
