@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'common.dart';
+import 'page3.dart';
 
 class CreateProfilePage2 extends StatefulWidget {
   const CreateProfilePage2({super.key});
@@ -12,17 +13,16 @@ class CreateProfilePage2 extends StatefulWidget {
 class _CreateProfilePage2State extends State<CreateProfilePage2> {
   String? _selectedOption;
 
-  final List<String> options = [
-    'CSE 316',
-    'CSE 373',
-    'CSE 304',
-    'CSE 416',
+  final List<List<String>> options = [
+    ['CSE 373', 'cse373'],
+    ['CSE 316', 'cse316'],
+    ['CSE 416', 'cse416']
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: TopBackButton(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,28 +42,32 @@ class _CreateProfilePage2State extends State<CreateProfilePage2> {
             ),
             ...options
                 .map(
-                  (String option) => Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
-                    child: RadioListTile<String>(
-                      title: Text(
-                        option,
-                        style: const TextStyle(fontSize: 18.0),
-                      ),
-                      value: option,
-                      groupValue: _selectedOption,
-                      onChanged: (String? value) {
-                        setState(() {
-                          _selectedOption = value;
-                        });
-                      },
+                  (List<String> option) => RadioListTile<String>(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16.0),
+                    title: Text(
+                      option[0],
+                      style: const TextStyle(fontSize: 18.0),
                     ),
+                    value: option[1],
+                    groupValue: _selectedOption,
+                    onChanged: (String? value) {
+                      setState(() {
+                        _selectedOption = value;
+                      });
+                    },
                   ),
                 )
                 .toList(),
           ],
         ),
       ),
-      floatingActionButton: NextButton(onPressed: () {}),
+      floatingActionButton: NextButton(onPressed: () {
+        // Navigate to the next page
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CreateProfilePage3()),
+        );
+      }),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

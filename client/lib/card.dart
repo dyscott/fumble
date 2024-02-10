@@ -36,7 +36,7 @@ List<Card> getCards() {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fumble'),
+        title: const Text('Fumble'),
       ),
       body: Stack(
         fit: StackFit.expand,
@@ -113,6 +113,7 @@ List<Card> getCards() {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+<<<<<<< HEAD
                 // Left-aligned button
                 Container(
                   decoration: BoxDecoration(
@@ -140,6 +141,37 @@ List<Card> getCards() {
                     },
                     color: Colors.white,
                   ),
+=======
+                const Text(
+                  'Gretta',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, // Text color
+                  ),
+                ),
+                SizedBox(height: 40.0), // Add more space between text and buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align buttons to the ends
+                  children: [
+                    // Add left-aligned button
+                    IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        // Handle the action when the left button is pressed
+                      },
+                      color: Colors.white, // Icon color
+                    ),
+                    // Add right-aligned button
+                    IconButton(
+                      icon: Icon(Icons.check),
+                      onPressed: () {
+                        // Handle the action when the right button is pressed
+                      },
+                      color: Colors.white, // Icon color
+                    ),
+                  ],
+>>>>>>> 26ae6fd254d0e4c5ebcd62ea26ea45f6a2dae193
                 ),
               ],
             ),
