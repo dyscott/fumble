@@ -11,6 +11,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:fumble/swipelist.dart';
 import 'package:provider/provider.dart';
 import 'auth.dart';
 import 'home.dart';
@@ -32,11 +33,11 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       // title: 'Fumble',
-      // home: HomePage(),
+      home: SwipeList(),
       
-        home: loading
-            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-            : const Landing()
+        // home: loading
+        //     ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+        //     : const Landing()
             
     );
   }
