@@ -3,20 +3,19 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'common.dart';
+import '../../common.dart';
 import 'page2.dart';
 
 class CreateProfilePage1 extends StatefulWidget {
-  const CreateProfilePage1({super.key});
+  final CreateProfileModel model;
+
+  const CreateProfilePage1({super.key, required this.model});
 
   @override
   State<CreateProfilePage1> createState() => _CreateProfilePage1State();
 }
 
 class _CreateProfilePage1State extends State<CreateProfilePage1> {
-  File? image;
-  String name = '';
-
   Future pickImage() async {
     var imagePicker = ImagePicker();
     var pickedImage = await imagePicker.pickImage(
@@ -24,19 +23,20 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
     );
     if (pickedImage != null) {
       setState(() {
-        image = File(pickedImage.path);
+        widget.model.avatar = File(pickedImage.path);
       });
     }
   }
 
   void updateName(String value) {
     setState(() {
-      name = value;
+      widget.model.name = value;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    var model = widget.model;
     return GestureDetector(
       onTap: () {
         // Dismiss the keyboard when the user taps outside the text field
@@ -59,8 +59,8 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
                   child: CircleAvatar(
                     backgroundColor: Colors.grey,
                     radius: 80,
-                    backgroundImage: image != null ? FileImage(image!) : null,
-                    child: image == null
+                    backgroundImage: model.avatar != null ? FileImage(model.avatar!) : null,
+                    child: model.avatar == null
                         ? const Icon(
                             Icons.add_a_photo,
                             size: 40,
@@ -84,14 +84,14 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
             ),
           ),
         ),
-        floatingActionButton: (image == null || name.isEmpty)
+        floatingActionButton: (model.avatar == null || model.name.isEmpty)
             ? null
             : NextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CreateProfilePage2()),
+                        builder: (context) => CreateProfilePage2(model: model)),
                   );
                 },
               ),
