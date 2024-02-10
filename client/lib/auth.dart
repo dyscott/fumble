@@ -25,7 +25,7 @@ class AuthProvider extends ChangeNotifier {
       initial: prefs.getString('pb_auth'),
     );
 
-    pb = PocketBase('http://127.0.0.1:8090', authStore: store);
+    pb = PocketBase('https://fumble.dyscott.xyz', authStore: store);
 
     pb.authStore.onChange.listen((event) {
       notifyListeners();
@@ -37,8 +37,9 @@ class AuthProvider extends ChangeNotifier {
 
   bool get isAuthenticated => pb.authStore.isValid;
 
-  Future<void> signIn() async {
-    final res = await pb.collection('users').authWithOAuth2('discord', (url) async {
+  Future<void> signInDiscord() async {
+    final res =
+        await pb.collection('users').authWithOAuth2('discord', (url) async {
       // or use something like flutter_custom_tabs to make the transitions between native and web content more seamless
       await launchUrl(url);
     });
@@ -47,9 +48,24 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> signInEmail(String email, String password) async {
+    final res = await pb.collection('users').authWithPassword(email, password);
+    user = res.record;
+    notifyListeners();
+  }
+
+  Future<void> signUpEmail(String email, String password) async {
+    await pb.collection('users').create(body: {
+      'email': email,
+      'password': password,
+      'passwordConfirm': password,
+    });
+    notifyListeners();
+  }
+
   Future<void> syncUser() async {
     try {
-    user = await pb.collection('users').getOne(pb.authStore.model.id);
+      user = await pb.collection('users').getOne(pb.authStore.model.id);
     } catch (e) {
       user = null;
     }
@@ -72,32 +88,25 @@ class DiscordSignInButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF5865F2), // Discord's primary color
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0)
+        backgroundColor: Color(0xFF5865F2), // Discord's primary color
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(0.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/discord-logo.png', // Replace with your Discord logo image asset
-              height: 30.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/discord-logo.png', // Replace with your Discord logo image asset
+            height: 24.0,
+          ),
+          const SizedBox(width: 10.0),
+          const Text(
+            'Sign in with Discord',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
             ),
-            const SizedBox(width: 10.0),
-            const Text(
-              'Sign in with Discord',
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

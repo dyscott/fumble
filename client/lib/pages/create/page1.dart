@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -23,7 +24,7 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
     );
     if (pickedImage != null) {
       setState(() {
-        widget.model.avatar = File(pickedImage.path);
+        widget.model.avatar = pickedImage;
       });
     }
   }
@@ -59,7 +60,11 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
                   child: CircleAvatar(
                     backgroundColor: Colors.grey,
                     radius: 80,
-                    backgroundImage: model.avatar != null ? FileImage(model.avatar!) : null,
+                    backgroundImage: model.avatar != null
+                        ? kIsWeb
+                            ? Image.network(model.avatar!.path).image
+                            : FileImage(File(model.avatar!.path))
+                        : null,
                     child: model.avatar == null
                         ? const Icon(
                             Icons.add_a_photo,

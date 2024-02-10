@@ -14,9 +14,9 @@ class CreateProfilePage2 extends StatefulWidget {
 
 class _CreateProfilePage2State extends State<CreateProfilePage2> {
   final List<List<String>> options = [
-    ['CSE 373', 'cse373'],
     ['CSE 316', 'cse316'],
-    ['CSE 416', 'cse416']
+    ['CSE 416', 'cse416'],
+    ['CSE 373', 'cse373']
   ];
 
   @override
@@ -52,11 +52,13 @@ class _CreateProfilePage2State extends State<CreateProfilePage2> {
                     ),
                     value: option[1],
                     groupValue: widget.model.course,
-                    onChanged: (String? value) {
-                      setState(() {
-                        widget.model.course = value!;
-                      });
-                    },
+                    onChanged: (option[1] == 'cse316')
+                        ? (String? value) {
+                            setState(() {
+                              widget.model.course = value!;
+                            });
+                          }
+                        : null,
                   ),
                 )
                 .toList(),

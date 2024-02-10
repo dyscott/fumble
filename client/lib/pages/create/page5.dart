@@ -20,8 +20,10 @@ class _CreateProfilePage5State extends State<CreateProfilePage5> {
     await widget.model.uploadProfile();
 
     nav.pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const TempHome()),
-      (route) => false,
+      MaterialPageRoute(
+        builder: (context) => const TempHome(),
+      ),
+      (route) => route.isFirst,
     );
   }
 
