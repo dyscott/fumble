@@ -38,51 +38,14 @@ class SwipeList extends StatelessWidget {
                       minimumVelocity: 10000,
                       cardWidth: 400,
                       rotationFactor: 0.25 / 3.14,
-                      swipeAnimationDuration: const Duration(milliseconds: 400),
+                      swipeAnimationDuration: const Duration(milliseconds: 100),
                       disableDragging: false,
                     ),
                   ),
                 ],
               ),
             ),
-            Positioned(
-              bottom: 0.0,
-              left: 12.0,
-              right: 12.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Left-aligned button
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.purple,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: () {
-                        // Handle the action when the left button is pressed
-                      },
-                      color: Colors.white,
-                    ),
-                  ),
-                  // Right-aligned button
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.purple,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: IconButton(
-                      icon: Icon(Icons.check),
-                      onPressed: () {
-                        // Handle the action when the right button is pressed
-                      },
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            
           ],
         ),
       ),

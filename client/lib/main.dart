@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:fumble/swipelist.dart';
 import 'package:provider/provider.dart';
 import 'auth.dart';
-import 'home.dart';
+// import 'home.dart';
 import 'pages/create/page1.dart';
 
 void main() {
