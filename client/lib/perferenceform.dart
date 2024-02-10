@@ -97,9 +97,10 @@ class _PreferenceFormState extends State<PreferenceForm> {
         onPressed: () {
           // Navigate to the next screen or perform any desired action
         },
-        label: Text('Next', style: TextStyle(color: Colors.white)),
-        icon: Icon(Icons.arrow_forward, color: Colors.white),
+        label: const Text('Next', style: TextStyle(color: Colors.white)),
+        icon: const Icon(Icons.arrow_forward, color: Colors.white),
         backgroundColor: Colors.purple,
+        foregroundColor: Colors.white,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
