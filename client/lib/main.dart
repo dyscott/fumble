@@ -36,17 +36,23 @@ class Home extends StatelessWidget {
     final isAuth = Provider.of<AuthProvider>(context).isAuthenticated;
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Fumble'),
-            const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: isAuth ? const Go() : const SignIn(),
-            ),
-          ],
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/giraffe.jpg'),
+                fit: BoxFit.cover)),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Fumble'),
+              const SizedBox(height: 20),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: isAuth ? const Go() : const SignIn(),
+              ),
+            ],
+          ),
         ),
       ),
     );

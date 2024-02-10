@@ -10,14 +10,14 @@ class SwipeList extends StatelessWidget {
   static const cards = <Card>[
     Card(
       color: Colors.red,
-      child: const SizedBox(
+      child: SizedBox(
         height: 800,
         width: 400,
       ),
     ),
     Card(
       color: Colors.green,
-      child: const SizedBox(
+      child: SizedBox(
         height: 800,
         width: 400,
       ),
