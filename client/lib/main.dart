@@ -1,10 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-//import 'package:pocketbase/pocketbase.dart';
 import 'package:provider/provider.dart';
 import 'auth.dart';
-import 'perferenceform.dart';
 import 'pages/create/page1.dart';
 
 void main() async {
@@ -102,7 +100,7 @@ class Go extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => CreateProfilePage1()),
+              MaterialPageRoute(builder: (context) => const CreateProfilePage1()),
             );
           },
           child: const Text('Go'),
