@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'auth.dart';
+import 'home.dart';
 import 'pages/create/page1.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       // title: 'Fumble',
-      // home: EditProfilePage(),
+      // home: HomePage(),
       
         home: loading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
