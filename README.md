@@ -1,3 +1,4 @@
+![github repo badge: Frontend](https://img.shields.io/badge/Frontend-Flutter-181717?color=purple) ![github repo badge: Backend](https://img.shields.io/badge/Backend-PocketBase-181717?color=white) ![github repo badge: Backend](https://img.shields.io/badge/Backend-Golang-181717?color=blue) ![github repo badge: Cloud Provider](https://img.shields.io/badge/Cloud%20Provider-Oracle%20Cloud-181717?color=orange)
 # Fumble
 
 Fumble addresses the challenge CS students face in finding reliable project collaborators by facilitating connections through a matching platform and fostering meaningful communication with a seamless messaging feature. Users can sign up via email or Discord, swipe through profiles for potential matches, and utilize profile editing tools to customize their information, enhancing the collaborative experience in educational projects.
@@ -20,9 +21,28 @@ Run the following commands in the backend directory to start the server:
 ```bash
 cd server
 go mod download
-go run .
+go run main.go serve
 ```
+
+Run the following commands in the frontend directory to start the app:
+
+```bash
+cd client
+flutter run
+```
+
 ## How we Built it
+
+### Security
+
+From the get-go, we prioritized security and privacy in the development of Fumble. We implemented OAuth 2.0 for user authentication, ensuring that user data is protected and secure. By integrating OAuth 2.0, we were able to provide a seamless and secure login experience for users, allowing them to sign up or log in using their Discord or email credentials. This approach not only streamlines the user experience but also ensures that user data is protected and secure.
+
+Our application is HTTPS only, with user passwords hashed such that even we don't know what our users' passwords are. We have strict authorization on requests to ensure that only the user who owns the data can access it.
+
+To prevent against SQL injection attacks, we never run raw SQL queries, our queries are managed by the PocketBase base library, which ensures that all queries are safe. We are also secured against JavaScript injection attacks through our use of Flutter, which does not run JavaScript at all.
+
+Although we did not have enough time to properly implement chat messaging, we would have used end-to-end encryption to ensure that only the sender and receiver can read the messages. Another nice touch would have been implementing the sendgrid API to send emails to users upon registration, password reset, etc.
+
 ### Frontend
 
 For the frontend of Fumble, we utilized Flutter as our primary framework. Flutter is an open-source UI software development toolkit based on Dart. We used its rich set of pre-built widgets and tools to develop an intuitive and high-performing mobile app. The user can seamlessly sign up or log into a Fumble profile using their Discord or email credentials. After signing in or logging in, users have the option to add/edit their name, biography and to pick which courses they are seeking partners for.
@@ -30,6 +50,12 @@ For the frontend of Fumble, we utilized Flutter as our primary framework. Flutte
 To host the app on mobile devices, we utilize Xcode and Apple Developer tools on iPhones.
 
 ### Backend
+
+For the backend, we used Go and PocketBase. PocketBase implements several Backend as a Service (BaaS) features that can be run locally, such as user authentication, SQL database, and easy integration with Dart and Go which abstracts away REST API calls. 
+
+We used PocketBase to store user data, including their name, biography, and courses they are seeking partners for. We also used PocketBase to store the matches between users and to facilitate messaging between users.
+
+The two microservice extensions we added to PocketBase were Wingman and Linkin. Wingman is a matching algorithm that matches users based on the courses they are seeking partners for and their profiles. Linkin provides complex queries to determine relations between users and manage the chat feature.
 
 ## Challenges we ran into
 
