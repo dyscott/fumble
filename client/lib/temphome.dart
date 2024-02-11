@@ -5,24 +5,33 @@ import 'package:fumble/auth.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 import 'common.dart';
+import 'messagelist.dart';
 
 class TempHome extends StatelessWidget {
   const TempHome({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: TopBackButton(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('Thank you for signing up for Fumble!',
+              const Text('Thank you for signing up for Fumble!',
                   style: TextStyle(fontSize: 20.0)),
-              SizedBox(height: 20),
-              Text('Our beta will be launching soon,'),
-              Text('we will notify you when it is ready!'),
-              DisplayUser(userId: 'racoon'),
+              const SizedBox(height: 20),
+              const Text('Our beta will be launching soon,'),
+              const Text('we will notify you when it is ready!'),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ChatPage()),
+                  );
+                },
+                child: const Text('Messages'),
+              ),
             ],
           ),
         ),

@@ -206,26 +206,3 @@ class _GoState extends State<Go> {
     );
   }
 }
-
-// class DisplayUser extends StatelessWidget {
-//   final String userId;
-//   const DisplayUser({required this.userId, super.key});
-
-//   Future<RecordModel> getUser() {
-//     return pb.collection('users').getOne(userId);
-//   }
-  
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder<RecordModel>(
-//       future: getUser(),
-//       builder: (context, snapshot) {
-//         if (snapshot.connectionState == ConnectionState.done) {
-//           return Text('User: ${snapshot.data?.data['username']}');
-//         } else {
-//           return const CircularProgressIndicator();
-//         }
-//       },
-//     );
-//   }
-// }

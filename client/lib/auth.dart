@@ -25,7 +25,7 @@ class AuthProvider extends ChangeNotifier {
       initial: prefs.getString('pb_auth'),
     );
 
-    pb = PocketBase('https://fumble.dyscott.xyz', authStore: store);
+    pb = PocketBase('http://127.0.0.1:8090', authStore: store);
 
     pb.authStore.onChange.listen((event) {
       notifyListeners();
