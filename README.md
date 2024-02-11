@@ -1,4 +1,4 @@
-![github repo badge: Frontend](https://img.shields.io/badge/Frontend-Flutter-181717?color=purple) ![github repo badge: Backend](https://img.shields.io/badge/Backend-PocketBase-181717?color=white) ![github repo badge: Backend](https://img.shields.io/badge/Backend-Golang-181717?color=blue) ![github repo badge: Cloud Provider](https://img.shields.io/badge/Cloud%20Provider-Oracle%20Cloud-181717?color=orange)
+![github repo badge: Frontend](https://img.shields.io/badge/Frontend-Flutter-181717?color=purple) ![github repo badge: Backend](https://img.shields.io/badge/Backend-PocketBase-181717?color=white) ![github repo badge: Backend](https://img.shields.io/badge/Backend-Golang-181717?color=blue) ![github repo badge: Database](https://img.shields.io/badge/Database-SQLite-181717?color=blue) ![github repo badge: Cloud Provider](https://img.shields.io/badge/Cloud%20Provider-Oracle%20Cloud-181717?color=orange) 
 # Fumble
 
 Fumble addresses the challenge CS students face in finding reliable project collaborators by facilitating connections through a matching platform and fostering meaningful communication with a seamless messaging feature. Users can sign up via email or Discord, swipe through profiles for potential matches, and utilize profile editing tools to customize their information, enhancing the collaborative experience in educational projects.
@@ -14,6 +14,8 @@ Fumble facilitates connections between users and like-minded CS students to find
 Upon opening the app, users are presented with the option to log in via email or Discord, or to sign up. The sign-up process requests a name, biography, profile image, and banner. The home screen allows users to swipe through other profiles, with a left swipe indicating rejection and a right swipe indicating a match. Additionally, users have access to a profile editing page where they can modify their profile image, banner cover, name, and biography. The app also includes a messaging feature, enabling users to communicate with their matches.
 
 ## Demonstration
+
+Take a look at our demo slides [here](https://docs.google.com/presentation/d/1KXgSXVg5x7y3DgavUdzUscsuOdKCbcREElIbVoId748/edit?usp=sharing)
 
 ## How to Use
 Run the following commands in the backend directory to start the server:
@@ -39,7 +41,7 @@ From the get-go, we prioritized security and privacy in the development of Fumbl
 
 Our application is HTTPS only, with user passwords hashed such that even we don't know what our users' passwords are. We have strict authorization on requests to ensure that only the user who owns the data can access it.
 
-To prevent against SQL injection attacks, we never run raw SQL queries, our queries are managed by the PocketBase base library, which ensures that all queries are safe. We are also secured against JavaScript injection attacks through our use of Flutter, which does not run JavaScript at all.
+To prevent against SQL injection attacks, we never run raw SQL queries, our queries are managed by the PocketBase base library, which ensures that all queries are safe. We are also secured against JavaScript injection and XSS attacks through our use of Flutter, which does not run JavaScript at all.
 
 Although we did not have enough time to properly implement chat messaging, we would have used end-to-end encryption to ensure that only the sender and receiver can read the messages. Another nice touch would have been implementing the sendgrid API to send emails to users upon registration, password reset, etc.
 

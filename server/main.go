@@ -123,9 +123,9 @@ func main() {
 			// Define the query to get all potential matches
 			potentialMatches := db.Select("users.id").
 				From("users").
-				LeftJoin("matches", dbx.NewExp("users.id = matches.target")).
-				Where(dbx.NewExp("matches.author IS NULL")).
-				AndWhere(dbx.Not(dbx.NewExp("users.id = {:sourceId}", dbx.Params{"sourceId": sourceId}))).
+				LeftJoin("matches", dbx.And(dbx.NewExp("users.id = matches.target"), dbx.NewExp("matches.author = {:sourceId}", dbx.Params{"sourceId": sourceId}))).
+				// Where(dbx.NewExp("matches.author IS NULL")).
+				Where(dbx.Not(dbx.NewExp("users.id = {:sourceId}", dbx.Params{"sourceId": sourceId}))).
 				AndWhere(dbx.NewExp("users.profileComplete = TRUE")).
 				AndWhere(dbx.NewExp("users.classes = {:sourcePreference}", dbx.Params{"sourcePreference": sourcePreference}))
 
