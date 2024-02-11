@@ -5,26 +5,20 @@ import 'messagelist.dart'; // Import your chat page component here
 import 'swipelist.dart'; // Import your SwipeList component here
 import 'profilepage.dart';
 
-   String removeAllHtmlTags(String htmlText) {
-    RegExp exp = RegExp(
-      r"<[^>]*>",
-      multiLine: true,
-      caseSensitive: true
-    );
+String removeAllHtmlTags(String htmlText) {
+  RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
 
-    return htmlText.replaceAll(exp, '');
-  }
+  return htmlText.replaceAll(exp, '');
+}
+
 class HomePage extends StatefulWidget {
-
-  
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
- 
   int _selectedIndex = 0;
 
   static final List<String> _appBarTitles = <String>[
@@ -39,14 +33,52 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<RecordModel> getUser() {
+    final String userID = pb.authStore.model.id;
+    return pb.collection('users').getOne(userID);
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> widgetOptions = <Widget>[
+      const SwipeList(),
+      FutureBuilder<RecordModel>(
+        future: getUser(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            final recordModel = snapshot.data;
+            if (recordModel == null) {
+              return const Center(
+                child: Text('Error: User not found'),
+              );
+            } else {
+              final url = pb.files
+                  .getUrl(recordModel, recordModel.data['gallery'][0])
+                  .toString();
+              String bio = removeAllHtmlTags(recordModel.data['bio']);
+              return ProfilePage(
+                avatarUrl: url,
+                name: recordModel.data['name'],
+                bio: bio,
+                id: recordModel.id,
+              );
+            }
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+      const ChatPage(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_appBarTitles[_selectedIndex]),
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.circular(
@@ -70,48 +102,12 @@ class _HomePageState extends State<HomePage> {
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: const Color.fromRGBO(156, 39, 176, 1),
-            onTap: _onItemTapped,
+            onTap: (int index) {
+              _onItemTapped(index);
+            },
           ),
         ),
       ),
     );
-  }
-
-  final List<Widget> _widgetOptions = <Widget>[
-    const SwipeList(),
-    FutureBuilder<RecordModel>(
-      future: getUser(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Text('Error: ${snapshot.error}'),
-          );
-        } else if (snapshot.hasData) {
-          final recordModel = snapshot.data!;
-         final url = pb.files.getUrl(recordModel, recordModel.data['avatar']).toString(); 
-          String bio = removeAllHtmlTags(recordModel.data['bio']);
-          return ProfilePage(
-            avatarUrl: url,
-            name: recordModel.data['name'] ?? 'Unknown',
-            bio: bio,
-            id: recordModel.data['id'] ?? 'No ID',
-          );
-        } else {
-          return const Center(
-            child: Text('No data available'),
-          );
-        }
-      },
-    ),
-    const ChatPage(),
-  ];
-
-  static Future<RecordModel> getUser() {
-    final String userID = pb.authStore.model.id;
-    return pb.collection('users').getOne(userID);
   }
 }
