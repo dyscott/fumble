@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:fumble/temphome.dart';
+import 'package:fumble/home.dart';
 import 'package:pocketbase/pocketbase.dart';
 import 'package:provider/provider.dart';
 import 'auth.dart';
@@ -156,7 +156,7 @@ class _GoState extends State<Go> {
     if (user.data['profileComplete'] == true) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const TempHome()),
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
     } else {
       final model = CreateProfileModel(userId: user.id);
