@@ -28,10 +28,10 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         // title: 'Fumble',
-        // home: HomePage()
-        home: loading
-            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-            : const Landing()
+        home: HomePage(),
+        // home: loading
+        //     ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+        //     : const Landing());
     );
   }
 }
