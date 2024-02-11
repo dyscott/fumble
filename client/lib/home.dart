@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
         }
       },
     ),
-    ChatPage(), // Replace Text widget with your ChatPage component
+    const ChatPage(),
   ];
 
   static Future<RecordModel> getUser() {
