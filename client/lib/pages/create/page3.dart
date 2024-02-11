@@ -42,7 +42,8 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
         body: TopBackButton(
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +51,7 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
                   const Text(
                     'Tell us more about yourself',
                     style: TextStyle(
-                      fontSize: 24.0,
+                      fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -109,8 +110,7 @@ class MultiPhotoUpload extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Align(
-        alignment: Alignment.center,
+      child: Center(
         child: AspectRatio(
           aspectRatio: 1.0, // 1.0 for a square aspect ratio
           child: Padding(
@@ -118,20 +118,32 @@ class MultiPhotoUpload extends StatelessWidget {
             child: (image == null)
                 ? GestureDetector(
                     onTap: setImage,
-                    child: AspectRatio(
-                      aspectRatio: 1.0,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                          shape: BoxShape.rectangle,
-                        ),
-                        child: const Icon(
-                          Icons.add_a_photo,
-                          size: 40,
-                          color: Colors.white,
-                        ),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.grey,
+                        shape: BoxShape.rectangle,
                       ),
-                    ))
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add_a_photo,
+                            size: 48.0,
+                            color: Colors.white,
+                          ),
+                          SizedBox(height: 32.0),
+                          Text(
+                            'Upload a gallery photo of yourself so that others can see you before they match',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                 : Container(
                     decoration: BoxDecoration(
                       color: Colors.grey,

@@ -1,11 +1,11 @@
 {
-    "name": "fumble",
-    "short_name": "fumble",
+    "name": "Fumble",
+    "short_name": "Fumble",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#hexcode",
     "theme_color": "#hexcode",
-    "description": "A new Flutter project.",
+    "description": "Fumble - Not a dating app",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

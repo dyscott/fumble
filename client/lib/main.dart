@@ -10,7 +10,6 @@ import 'common.dart';
 import 'pages/create/page1.dart';
 import 'pages/signin.dart';
 import 'pages/signup.dart';
-import 'package:fumble/home.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -28,12 +27,11 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        // title: 'Fumble',
-        home: HomePage(),
-        // home: loading
-        //     ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-        //     : const Landing());
-    );
+        title: 'Fumble',
+        // home: HomePage()
+        home: loading
+            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+            : const Landing());
   }
 }
 
@@ -208,26 +206,3 @@ class _GoState extends State<Go> {
     );
   }
 }
-
-// class DisplayUser extends StatelessWidget {
-//   final String userId;
-//   const DisplayUser({required this.userId, super.key});
-
-//   Future<RecordModel> getUser() {
-//     return pb.collection('users').getOne(userId);
-//   }
-  
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder<RecordModel>(
-//       future: getUser(),
-//       builder: (context, snapshot) {
-//         if (snapshot.connectionState == ConnectionState.done) {
-//           return Text('User: ${snapshot.data?.data['username']}');
-//         } else {
-//           return const CircularProgressIndicator();
-//         }
-//       },
-//     );
-//   }
-// }
