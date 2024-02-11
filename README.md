@@ -13,8 +13,6 @@ Fumble facilitates connections between users and like-minded CS students to find
 
 Upon opening the app, users are presented with the option to log in via email or Discord, or to sign up. The sign-up process requests a name, biography, profile image, and banner. The home screen allows users to swipe through other profiles, with a left swipe indicating rejection and a right swipe indicating a match. Additionally, users have access to a profile editing page where they can modify their profile image, banner cover, name, and biography. The app also includes a messaging feature, enabling users to communicate with their matches.
 
-## Demonstration
-
 ## How to Use
 Run the following commands in the backend directory to start the server:
 
