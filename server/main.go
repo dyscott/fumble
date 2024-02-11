@@ -102,66 +102,48 @@ func main() {
 		e.Router.GET("/api/fumble/wingman", func(c echo.Context) error {
 			user, _ := c.Get(apis.ContextAuthRecordKey).(*models.Record)
 			sourceId := user.GetString("id")
-			// the match table has 3 columns: source_id, target_id, and status
-			// the user table has only 2 columns that are relevant: id, preference
 
 			dao := app.Dao()
-			db := dao.DB()
+			//db := dao.DB()
 
-			sourcePreferenceRecord, err := dao.FindRecordById("users", sourceId)
-
-			if err != nil {
-				log.Fatal(err)
-				// return []string{"error: " + err.Error()}
-			}
-			sourcePreference := sourcePreferenceRecord.GetString("classes")
-
-			// create a join query to get all target_id who have the same preference as the source_id, and whose status is not accept or reject
-			// the issue is, there will never be a status of none because the row would just not exist in the match table
-			// so we need to get all target_id who have the same preference as the source_id, and who are not already matched with the source_id
+			sourcePreference := user.GetString("classes")
 
 			// Define the query to get all potential matches
-			potentialMatches := db.Select("users.id").
-				From("users").
-				LeftJoin("matches", dbx.NewExp("users.id = matches.target")).
-				Where(dbx.NewExp("matches.author IS NULL")).
-				AndWhere(dbx.Not(dbx.NewExp("users.id = {:sourceId}", dbx.Params{"sourceId": sourceId}))).
-				AndWhere(dbx.NewExp("users.profileComplete = TRUE")).
-				AndWhere(dbx.NewExp("users.classes = {:sourcePreference}", dbx.Params{"sourcePreference": sourcePreference}))
-
-			// now return the potential matches as a JSON response
-			rows, err := potentialMatches.Rows()
-			if err != nil {
-				log.Fatal(err)
-			}
-			defer rows.Close()
-
-			var matches []string
-			for rows.Next() {
-				var match string
-				rows.Scan(&match)
-				matches = append(matches, match)
-			}
-
-			// Query the users table for the matches
-			// Convert matches to []interface{}
-			interfaceSlice := make([]interface{}, len(matches))
-			for i, v := range matches {
-				interfaceSlice[i] = v
-			}
-
-			// Query the users table for the matches
-			user_query := dao.
+			potentialMatchesQuery := dao.
 				RecordQuery("users").
-				AndWhere(dbx.In("id", interfaceSlice...))
+				AndWhere(dbx.NewExp("id != {:id}", dbx.Params{"id": sourceId})).
+				AndWhere(dbx.NewExp("classes = {:classes}", dbx.Params{"classes": sourcePreference}))
 
-			users := []*models.Record{}
-			if err := user_query.All(&users); err != nil {
+			potentialMatches := []*models.Record{}
+			if err := potentialMatchesQuery.All(&potentialMatches); err != nil {
 				return c.JSON(http.StatusInternalServerError, err)
 			}
 
-			// return the matches as a JSON response
-			return c.JSON(200, users)
+			// Get the user's existing swipes (likes / rejects)
+			existingSwipesQuery := dao.
+				RecordQuery("matches").
+				AndWhere(dbx.NewExp("author = {:id}", dbx.Params{"id": sourceId}))
+
+			existingSwipes := []*models.Record{}
+			if err := existingSwipesQuery.All(&existingSwipes); err != nil {
+				return c.JSON(http.StatusInternalServerError, err)
+			}
+
+			// Create a map of existing swipes
+			existingSwipesMap := make(map[string]string)
+			for _, swipe := range existingSwipes {
+				existingSwipesMap[swipe.GetString("target")] = swipe.GetString("status")
+			}
+
+			// Filter out the existing swipes from the potential matches
+			filteredPotentialMatches := make([]*models.Record, 0)
+			for _, match := range potentialMatches {
+				if _, ok := existingSwipesMap[match.GetString("id")]; !ok {
+					filteredPotentialMatches = append(filteredPotentialMatches, match)
+				}
+			}
+
+			return c.JSON(200, filteredPotentialMatches)
 		})
 
 		return nil
