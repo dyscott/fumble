@@ -10,8 +10,6 @@ class ProfilePage extends StatelessWidget {
 
   // make a pocketbase query
   // or fetch only the first record that matches the specified filter
-  
-
 
   const ProfilePage({
     Key? key,
@@ -58,6 +56,4 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
- 
-  
 }
