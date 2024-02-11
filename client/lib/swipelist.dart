@@ -18,9 +18,14 @@ class CardUser {
       required this.id});
 }
 
-class SwipeList extends StatelessWidget {
+class SwipeList extends StatefulWidget {
   const SwipeList({Key? key}) : super(key: key);
 
+  @override
+  State<SwipeList> createState() => _SwipeListState();
+}
+
+class _SwipeListState extends State<SwipeList> {
   // Query wingman to get possible matches
   Future<List<CardUser>> getPossibleMatches() async {
     var res = await pb.send('api/fumble/wingman');
@@ -78,7 +83,7 @@ class SwipeList extends StatelessWidget {
           }).toList();
           final swipingCardDeck = SwipingDeck<ExpandableBioCard>(
             cardDeck: cards,
-            onDeckEmpty: () => debugPrint("Card deck empty"),
+            onDeckEmpty: () => setState(() {}),
             onLeftSwipe: (card) {
               // Handle left swipe (reject)
               updateDatabase(card, false);
@@ -100,19 +105,20 @@ class SwipeList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                child: Stack(children: [
+                  child: Stack(
+                children: [
                   swipingCardDeck,
                   // Show a message when the card deck is empty
                   if (swipingCardDeck.cardDeck.isEmpty)
-                    const Center(
-                      child: Text(
-                        "You're out of matches... check back later!",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  const Center(
+                    child: Text(
+                      "You're out of matches... check back later!",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
+                  ),
                 ],
               )),
               Padding(
