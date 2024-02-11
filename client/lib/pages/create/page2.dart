@@ -33,14 +33,15 @@ class _CreateProfilePage2State extends State<CreateProfilePage2> {
               padding: EdgeInsets.only(bottom: 8.0),
               child: Padding(
                 padding: EdgeInsets.all(16.0), // Added padding to the text
-                child: Text(
+                child: Center(
+                  child: Text(
                   'What are you looking for?',
                   style: TextStyle(
                     fontSize: 36.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
+              ),)
             ),
             ...options
                 .map(

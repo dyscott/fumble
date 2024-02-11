@@ -10,7 +10,6 @@ import 'common.dart';
 import 'pages/create/page1.dart';
 import 'pages/signin.dart';
 import 'pages/signup.dart';
-import 'home.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
