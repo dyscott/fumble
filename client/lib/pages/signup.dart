@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fumble/auth.dart';
+import 'package:pocketbase/pocketbase.dart';
 import 'package:provider/provider.dart';
 
 import '../common.dart';
@@ -32,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
           _passwordController.text,
         );
         nav.popUntil((route) => route.isFirst);
-      } catch (e) {
+      } on ClientException catch (e) {
         messenger.showSnackBar(
           SnackBar(
             content: Text(e.toString()),
