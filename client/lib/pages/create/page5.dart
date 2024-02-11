@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fumble/common.dart';
 import 'package:fumble/temphome.dart';
+import 'package:provider/provider.dart';
+
+import '../../auth.dart';
 
 class CreateProfilePage5 extends StatefulWidget {
   final CreateProfileModel model;
@@ -16,8 +19,12 @@ class _CreateProfilePage5State extends State<CreateProfilePage5> {
 
   void onGo() async {
     final nav = Navigator.of(context);
+    final auth = Provider.of<AuthProvider>(context, listen: false);
 
     await widget.model.uploadProfile();
+
+    // Sync the user data
+    await auth.syncUser();
 
     nav.pushAndRemoveUntil(
       MaterialPageRoute(

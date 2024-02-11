@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-// void main() {
-//   runApp(MaterialApp(
-//     home: ChatPage(),
-//   ));
-// }
-
 class ChatUser {
   final String name;
   final String avatarUrl;
@@ -108,6 +102,23 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.person.name),
+        leading:  Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            // const SizedBox(width: 12), // Add some padding between the back arrow and the avatar
+            CircleAvatar(
+              radius: 20,
+              backgroundImage: NetworkImage(widget.person.avatarUrl),
+            ),
+            // const SizedBox(width: 8), // Add some padding between the avatar and the title
+          ],
+        ),
       ),
       body: Column(
         children: [

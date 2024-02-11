@@ -113,7 +113,7 @@ class SignIn extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const SignInPage()),
                 );
               },
-              child: const Text('Sign in with Email'),
+              child: const Text('Log in with Email'),
             ),
           ),
           const SizedBox(height: 20),
