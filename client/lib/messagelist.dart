@@ -8,7 +8,10 @@ class ChatUser {
 }
 
 class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ChatPageState createState() => _ChatPageState();
 }
 
@@ -40,11 +43,11 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 15.0),
             Expanded(
               child: ListView.builder(
                 itemCount: _chatUsers.length,
@@ -79,9 +82,9 @@ class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key, required this.person}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _ChatScreenState createState() => _ChatScreenState();
 }
-
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _textEditingController = TextEditingController();
@@ -102,23 +105,20 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.person.name),
-        leading:  Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            // const SizedBox(width: 12), // Add some padding between the back arrow and the avatar
-            CircleAvatar(
-              radius: 20,
-              backgroundImage: NetworkImage(widget.person.avatarUrl),
-            ),
-            // const SizedBox(width: 8), // Add some padding between the avatar and the title
-          ],
+        centerTitle: true, // Center the title horizontally
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
+        actions: [
+          CircleAvatar(
+            radius: 20,
+            backgroundImage: NetworkImage(widget.person.avatarUrl),
+          ),
+          const SizedBox(width: 12), // Add some padding between the avatar and the title
+        ],
       ),
       body: Column(
         children: [

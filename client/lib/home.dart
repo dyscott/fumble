@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:fumble/auth.dart';
+import 'package:pocketbase/pocketbase.dart';
 import 'messagelist.dart'; // Import your chat page component here
 import 'swipelist.dart'; // Import your SwipeList component here
 import 'profilepage.dart';
 
+   String removeAllHtmlTags(String htmlText) {
+    RegExp exp = RegExp(
+      r"<[^>]*>",
+      multiLine: true,
+      caseSensitive: true
+    );
+
+    return htmlText.replaceAll(exp, '');
+  }
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+
+  
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+ 
   int _selectedIndex = 0;
-
-  static final List<Widget> _widgetOptions = <Widget>[
-    const SwipeList(),
-    const ProfilePage(
-      avatarUrl:
-          'https://cdn.discordapp.com/attachments/1181082647833890876/1205963843701047427/FA7223D0-AED6-4532-89FD-B340D7DC2C7E_1_105_c.jpeg?ex=65da485a&is=65c7d35a&hm=0479f565398735a3f5fe87deaa20e876fd297c3703919cacc22b4e68bd62fa36&',
-      name: 'Daniel',
-      bio: 'CSE/AMS double major who took comp geo + graph theory for fun. 5.0 GPA.',
-    ),
-    ChatPage(), // Replace Text widget with your ChatPage component
-  ];
 
   static final List<String> _appBarTitles = <String>[
     'Home',
@@ -66,11 +69,49 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
             currentIndex: _selectedIndex,
-            selectedItemColor: Color.fromRGBO(156, 39, 176, 1),
+            selectedItemColor: const Color.fromRGBO(156, 39, 176, 1),
             onTap: _onItemTapped,
           ),
         ),
       ),
     );
+  }
+
+  final List<Widget> _widgetOptions = <Widget>[
+    const SwipeList(),
+    FutureBuilder<RecordModel>(
+      future: getUser(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        } else if (snapshot.hasData) {
+          final recordModel = snapshot.data!;
+         final url = pb.files.getUrl(recordModel, recordModel.data['avatar']).toString(); 
+          String bio = removeAllHtmlTags(recordModel.data['bio']);
+          return ProfilePage(
+            avatarUrl: url,
+            name: recordModel.data['name'] ?? 'Unknown',
+            bio: bio,
+            id: recordModel.data['id'] ?? 'No ID',
+          );
+        } else {
+          return const Center(
+            child: Text('No data available'),
+          );
+        }
+      },
+    ),
+    ChatPage(), // Replace Text widget with your ChatPage component
+  ];
+
+  static Future<RecordModel> getUser() {
+    final String userID = pb.authStore.model.id;
+    return pb.collection('users').getOne(userID);
   }
 }

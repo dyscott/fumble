@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 late PocketBase pb;
-
 class AuthProvider extends ChangeNotifier {
+  
   bool _loading = true;
 
   bool get loading => _loading;
@@ -88,7 +88,7 @@ class DiscordSignInButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF5865F2), // Discord's primary color
+        backgroundColor: const Color(0xFF5865F2), // Discord's primary color
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
       ),
       child: Row(
