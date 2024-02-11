@@ -5,15 +5,17 @@ class ExpandableBioCard extends StatefulWidget {
   final String avatarUrl;
   final String name;
   final String bio;
+  final String id; //TARGET ID!!!!!!!!
 
   const ExpandableBioCard({super.key, 
     required this.avatarUrl,
     required this.name,
     required this.bio,
+    required this.id,
   });
 
   @override
-  _ExpandableBioCardState createState() => _ExpandableBioCardState();
+   _ExpandableBioCardState createState() => _ExpandableBioCardState();
 }
 
 class _ExpandableBioCardState extends State<ExpandableBioCard> {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fumble/common.dart';
-import 'package:fumble/temphome.dart';
+import 'package:fumble/home.dart';
 import 'package:provider/provider.dart';
 
 import '../../auth.dart';
@@ -28,7 +28,7 @@ class _CreateProfilePage5State extends State<CreateProfilePage5> {
 
     nav.pushAndRemoveUntil(
       MaterialPageRoute(
-        builder: (context) => const TempHome(),
+        builder: (context) => const HomePage(),
       ),
       (route) => route.isFirst,
     );

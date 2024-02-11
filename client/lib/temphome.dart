@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fumble/auth.dart';
 import 'package:pocketbase/pocketbase.dart';
@@ -32,6 +30,7 @@ class TempHome extends StatelessWidget {
                 },
                 child: const Text('Messages'),
               ),
+              DisplayUser(),
             ],
           ),
         ),
@@ -41,12 +40,11 @@ class TempHome extends StatelessWidget {
 }
 
 class DisplayUser extends StatelessWidget {
-  final String userId;
-  const DisplayUser({required this.userId, super.key});
+  const DisplayUser({super.key});
 
   Future<List<RecordModel>> getUser() async {
     print('running');
-    var res = await pb.send('api/fumble/racoon');
+    var res = await pb.send('api/fumble/wingman');
 
     print(res);
 

@@ -14,7 +14,7 @@ class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
 
   Future<List<ChatUser>> getMatchedUsers() async {
-    var res = await pb.send('api/fumble/racoon');
+    var res = await pb.send('api/fumble/linkin');
 
     List<RecordModel> list = [];
     for (var i in res) {
@@ -98,6 +98,7 @@ class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key, required this.person}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _ChatScreenState createState() => _ChatScreenState();
 }
 
