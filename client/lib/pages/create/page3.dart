@@ -51,7 +51,7 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
                   const Text(
                     'Tell us more about yourself',
                     style: TextStyle(
-                      fontSize: 24.0,
+                      fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -136,7 +136,7 @@ class MultiPhotoUpload extends StatelessWidget {
                             'Upload a gallery photo of yourself so that others can see you before they match',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 16.0,
+                              fontSize: 14.0,
                               color: Colors.white,
                             ),
                           ),
