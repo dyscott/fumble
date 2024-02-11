@@ -30,21 +30,20 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 20), // Add some space between the card and the button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: SizedBox(
-                width: 50, // Adjust the width of the button
-                height: 50, // Adjust the height of the button
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Handle button press
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(), // Make the button a circle
-                    backgroundColor: Colors.purple, // Background color of button
-                    foregroundColor: Colors.white, // Text color of button
+              child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.purple,
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.edit),
+                      onPressed: () {
+                        // handle button press
+                        // swipingCardDeck.swipeLeft();
+                      },
+                      color: Colors.white,
+                    ),
                   ),
-                  child: const Icon(Icons.edit), // Icon displayed
-                ),
-              ),
             ),
           ],
         ),

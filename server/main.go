@@ -53,13 +53,6 @@ func wingman(app *pocketbase.PocketBase, sourceId string) []string {
 	// the issue is, there will never be a status of none because the row would just not exist in the match table
 	// so we need to get all target_id who have the same preference as the source_id, and who are not already matched with the source_id
 
-	// potentialMatchRecords, err := dao.FindFirstRecordByFilter(
-	// 		"users",
-	// 		"classes = '{:sourcePreference}' && id != '{:sourceId}' && profileComplete = TRUE", dbx.Params{"sourcePreference": sourcePreference, "sourceId": sourceId})
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
 	// Define the query to get all potential matches
 	potentialMatches := db.Select("users.id").
 		From("users").
