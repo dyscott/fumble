@@ -10,6 +10,7 @@ import 'common.dart';
 import 'pages/create/page1.dart';
 import 'pages/signin.dart';
 import 'pages/signup.dart';
+import 'home.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -31,7 +32,8 @@ class MainApp extends StatelessWidget {
         // home: HomePage()
         home: loading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
-            : const Landing());
+            : const Landing()
+    );
   }
 }
 
@@ -111,7 +113,7 @@ class SignIn extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const SignInPage()),
                 );
               },
-              child: const Text('Sign in with Email'),
+              child: const Text('Log in with Email'),
             ),
           ),
           const SizedBox(height: 20),
