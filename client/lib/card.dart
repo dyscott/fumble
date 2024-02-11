@@ -29,9 +29,12 @@ class _ExpandableBioCardState extends State<ExpandableBioCard> {
           SizedBox(
             width: 375,
             height: 550,
-            child: Image.network(
-              widget.avatarUrl,
-              fit: BoxFit.cover,
+            child: Container(
+              color: Colors.white,
+              child: Image.network(
+                widget.avatarUrl,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Positioned(
