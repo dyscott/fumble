@@ -54,6 +54,10 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
                       fontSize: 36.0,
                       fontWeight: FontWeight.bold,
                     )),
+                const Text('Upload an avatar and enter your name',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    )),
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: pickImage,

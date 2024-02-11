@@ -10,6 +10,7 @@ import 'common.dart';
 import 'pages/create/page1.dart';
 import 'pages/signin.dart';
 import 'pages/signup.dart';
+import 'package:fumble/home.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -111,7 +112,7 @@ class SignIn extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const SignInPage()),
                 );
               },
-              child: const Text('Sign in with Email'),
+              child: const Text('Log in with Email'),
             ),
           ),
           const SizedBox(height: 20),
