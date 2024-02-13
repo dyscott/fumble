@@ -4,7 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../common.dart';
+import '../../components/nav.dart';
+import '../../models/create.dart';
 import 'page4.dart';
 
 class CreateProfilePage3 extends StatefulWidget {
@@ -61,6 +62,7 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
                   ),
                   TextField(
                     maxLines: 5,
+                    maxLength: 300,
                     decoration: const InputDecoration(
                       hintText: 'Enter your bio here...',
                       border: OutlineInputBorder(),
@@ -72,13 +74,7 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
                       });
                     },
                   ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    '${model.bio.length}/300 characters',
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                    ),
-                  ),
+                  const SizedBox(height: 20.0),
                 ],
               ),
             ),
@@ -109,55 +105,53 @@ class MultiPhotoUpload extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider<Object>? image;
+    if (this.image != null) {
+      image = kIsWeb
+          ? Image.network(this.image!.path).image
+          : FileImage(File(this.image!.path));
+    }
+
     return Expanded(
       child: Center(
         child: AspectRatio(
           aspectRatio: 1.0, // 1.0 for a square aspect ratio
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: (image == null)
-                ? GestureDetector(
-                    onTap: setImage,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.grey,
-                        shape: BoxShape.rectangle,
-                      ),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.add_a_photo,
-                            size: 48.0,
-                            color: Colors.white,
-                          ),
-                          SizedBox(height: 32.0),
-                          Text(
-                            'Upload a gallery photo of yourself so that others can see you before they match',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                : Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      image: image != null
-                          ? DecorationImage(
-                              image: kIsWeb
-                                  ? Image.network(image!.path).image
-                                  : FileImage(File(image!.path)),
-                              fit: BoxFit.cover)
-                          : null,
-                      shape: BoxShape.rectangle,
-                    ),
+              padding: const EdgeInsets.all(16.0),
+              child: GestureDetector(
+                onTap: setImage,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    image: image != null
+                        ? DecorationImage(
+                            image: image,
+                            fit: BoxFit.cover,
+                          )
+                        : null,
+                    shape: BoxShape.rectangle,
                   ),
-          ),
+                  child: image == null ? const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.add_a_photo,
+                        size: 48.0,
+                        color: Colors.white,
+                      ),
+                      SizedBox(height: 32.0),
+                      Text(
+                        'Upload a gallery photo of yourself so that others can see you before they match',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ) : null,
+                ),
+              )),
         ),
       ),
     );

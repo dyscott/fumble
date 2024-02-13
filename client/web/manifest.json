@@ -1,11 +1,11 @@
 {
-    "name": "Fumble",
-    "short_name": "Fumble",
+    "name": "client",
+    "short_name": "client",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#hexcode",
-    "theme_color": "#hexcode",
-    "description": "Fumble - Not a dating app",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "Fumble - Find your next project partner",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

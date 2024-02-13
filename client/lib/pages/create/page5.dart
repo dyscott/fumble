@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fumble/common.dart';
-import 'package:fumble/home.dart';
 import 'package:provider/provider.dart';
 
-import '../../auth.dart';
+import '../../util/auth.dart';
+import '../../components/nav.dart';
+import '../../models/create.dart';
+import '../home.dart';
 
 class CreateProfilePage5 extends StatefulWidget {
   final CreateProfileModel model;
