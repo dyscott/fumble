@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pocketbase/pocketbase.dart';
 
-import '../util/auth.dart';
 import 'home_tabs/messagelist.dart';
 import 'home_tabs/swipelist.dart';
 import 'home_tabs/profilepage.dart';
-
-String removeAllHtmlTags(String htmlText) {
-  RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
-
-  return htmlText.replaceAll(exp, '');
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -34,43 +26,11 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<RecordModel> getUser() {
-    final String userID = pb.authStore.model.id;
-    return pb.collection('users').getOne(userID);
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Widget> widgetOptions = <Widget>[
       const SwipeListPage(),
-      FutureBuilder<RecordModel>(
-        future: getUser(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            final recordModel = snapshot.data;
-            if (recordModel == null) {
-              return const Center(
-                child: Text('Error: User not found'),
-              );
-            } else {
-              final url = pb.files
-                  .getUrl(recordModel, recordModel.data['gallery'][0])
-                  .toString();
-              String bio = removeAllHtmlTags(recordModel.data['bio']);
-              return ProfilePage(
-                avatarUrl: url,
-                name: recordModel.data['name'],
-                bio: bio,
-                id: recordModel.id,
-              );
-            }
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
+      const ProfilePage(),
       const ChatPage(),
     ];
 

@@ -23,8 +23,7 @@ class ChatPage extends StatelessWidget {
     List<ChatUser> users = [];
     for (var i in list) {
       final url = pb.files.getUrl(i, i.getStringValue('avatar')).toString();
-      users.add(ChatUser(
-          name: i.getStringValue('name'), avatarUrl: url));
+      users.add(ChatUser(name: i.getStringValue('name'), avatarUrl: url));
     }
 
     return users;
@@ -50,8 +49,8 @@ class ChatPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return ListTile(
                           leading: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(users[index].avatarUrl),
+                            backgroundImage: NetworkImage(
+                                '${users[index].avatarUrl}?thumb=0x64'),
                           ),
                           title: Text(users[index].name),
                           onTap: () {
@@ -118,7 +117,8 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             CircleAvatar(
               radius: 20,
-              backgroundImage: NetworkImage(widget.person.avatarUrl),
+              backgroundImage:
+                  NetworkImage('${widget.person.avatarUrl}?thumb=0x64'),
             ),
           ],
         ),

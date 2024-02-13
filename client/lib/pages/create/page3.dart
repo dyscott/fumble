@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:Fumble/pages/create/page5.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -60,7 +61,7 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
                     image: model.galleryImage,
                     setImage: setImage,
                   ),
-                  TextField(
+                  TextFormField(
                     maxLines: 5,
                     maxLength: 300,
                     decoration: const InputDecoration(
@@ -73,8 +74,9 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
                         model.bio = value;
                       });
                     },
+                    initialValue: model.bio,
                   ),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 64.0),
                 ],
               ),
             ),
@@ -87,7 +89,10 @@ class _CreateProfilePage3State extends State<CreateProfilePage3> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => CreateProfilePage4(model: model)),
+                    builder: (context) => (model.edit)
+                        ? CreateProfilePage5(model: model)
+                        : CreateProfilePage4(model: model),
+                  ),
                 );
               }),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -131,25 +136,27 @@ class MultiPhotoUpload extends StatelessWidget {
                         : null,
                     shape: BoxShape.rectangle,
                   ),
-                  child: image == null ? const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.add_a_photo,
-                        size: 48.0,
-                        color: Colors.white,
-                      ),
-                      SizedBox(height: 32.0),
-                      Text(
-                        'Upload a gallery photo of yourself so that others can see you before they match',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ) : null,
+                  child: image == null
+                      ? const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.add_a_photo,
+                              size: 48.0,
+                              color: Colors.white,
+                            ),
+                            SizedBox(height: 32.0),
+                            Text(
+                              'Upload a gallery photo of yourself so that others can see you before they match',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        )
+                      : null,
                 ),
               )),
         ),

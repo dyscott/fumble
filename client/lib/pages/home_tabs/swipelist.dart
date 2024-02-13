@@ -5,7 +5,6 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
 import '../../util/auth.dart';
 import '../../components/card.dart';
-import '../home.dart';
 
 class CardUser {
   final String name;
@@ -43,8 +42,8 @@ class _SwipeListPageState extends State<SwipeListPage> {
       users.add(
         CardUser(
             name: i.getStringValue('name'),
-            avatarUrl: '$url?thumb=0x1024',
-            bio: removeAllHtmlTags(i.getStringValue('bio')),
+            avatarUrl: url,
+            bio: i.getStringValue('bio'),
             id: i.id),
       );
     }

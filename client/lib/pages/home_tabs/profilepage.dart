@@ -1,24 +1,13 @@
+import 'package:Fumble/util/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../components/card.dart';
 import '../../models/create.dart';
 import '../create/page1.dart'; // Import the ExpandableBioCard component
 
 class ProfilePage extends StatefulWidget {
-  // User information
-  final String avatarUrl;
-  final String name;
-  final String bio;
-  final String id;
-
-  // make a pocketbase query
-  // or fetch only the first record that matches the specified filter
-
   const ProfilePage({
     Key? key,
-    required this.avatarUrl,
-    required this.name,
-    required this.bio,
-    required this.id,
   }) : super(key: key);
 
   @override
@@ -28,8 +17,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   void handleEdit() async {
     final nav = Navigator.of(context);
-    final model = CreateProfileModel(
-        userId: widget.id, name: widget.name, bio: widget.bio);
+    final user = Provider.of<AuthProvider>(context, listen: false).user!;
+
+    final model = CreateProfileModel.fromUser(user);
 
     nav.push(
       MaterialPageRoute(
@@ -40,6 +30,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<AuthProvider>(context).user!;
+
+    final avatarUrl = pb.files.getUrl(user, user.data['gallery'][0]).toString();
+
     return Column(
       //mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -47,10 +41,10 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: ExpandableBioCard(
-              avatarUrl: widget.avatarUrl,
-              name: widget.name,
-              bio: widget.bio,
-              id: widget.id,
+              avatarUrl: avatarUrl,
+              name: user.data['name'],
+              bio: user.data['bio'],
+              id: user.id,
             ),
           ),
         ),

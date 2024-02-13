@@ -68,7 +68,7 @@ class _CreateProfilePage5State extends State<CreateProfilePage5> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
                     child: Text(
-                      'Get Started!',
+                      'Start Matching!',
                       style: TextStyle(
                         fontSize: 24.0,
                       ),

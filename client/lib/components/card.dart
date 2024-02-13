@@ -1,10 +1,11 @@
+import 'package:Fumble/util/misc.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableBioCard extends StatefulWidget {
   final String avatarUrl;
   final String name;
   final String bio;
-  final String id; //TARGET ID!!!!!!!!
+  final String id; // target user id
 
   const ExpandableBioCard({
     super.key,
@@ -23,6 +24,8 @@ class _ExpandableBioCardState extends State<ExpandableBioCard> {
 
   @override
   Widget build(BuildContext context) {
+    final bio = removeAllHtmlTags(widget.bio);
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Stack(
@@ -31,7 +34,7 @@ class _ExpandableBioCardState extends State<ExpandableBioCard> {
             decoration: BoxDecoration(
               color: Colors.black,
               image: DecorationImage(
-                image: NetworkImage(widget.avatarUrl),
+                image: NetworkImage('${widget.avatarUrl}?thumb=0x1024'),
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -77,8 +80,8 @@ class _ExpandableBioCardState extends State<ExpandableBioCard> {
                       },
                       child: Text(
                         _expandBio
-                            ? widget.bio
-                            : '${widget.bio.substring(0, widget.bio.length > 50 ? 50 : widget.bio.length)}...',
+                            ? bio
+                            : '${bio.substring(0, bio.length > 50 ? 50 : bio.length)}...',
                         style: const TextStyle(
                           fontSize: 20.0,
                           color: Colors.white,

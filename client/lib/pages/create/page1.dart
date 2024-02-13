@@ -89,12 +89,13 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
                 const SizedBox(height: 20),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: TextField(
+                  child: TextFormField(
                     decoration: const InputDecoration(
                       hintText: 'Name',
                       border: OutlineInputBorder(),
                     ),
                     onChanged: updateName,
+                    initialValue: model.name,
                   ),
                 ),
               ],
