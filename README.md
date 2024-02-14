@@ -13,13 +13,10 @@ Fumble facilitates connections between users and like-minded CS students to find
 
 Upon opening the app, users are presented with the option to log in via email or Discord, or to sign up. The sign-up process requests a name, biography, profile image, and banner. The home screen allows users to swipe through other profiles, with a left swipe indicating rejection and a right swipe indicating a match. Additionally, users have access to a profile editing page where they can modify their profile image, banner cover, name, and biography. The app also includes a messaging feature, enabling users to communicate with their matches.
 
-## Demonstration
+## Usage
+Requires [Go](https://go.dev/doc/install) and [Flutter](https://docs.flutter.dev/get-started/install) to be installed. Be sure to configure Flutter for each platform you want to build for. As of now, we have only tested Web and iOS.
 
-Take a look at our demo slides [here](https://docs.google.com/presentation/d/1KXgSXVg5x7y3DgavUdzUscsuOdKCbcREElIbVoId748/edit?usp=sharing)
-
-## How to Use
 Run the following commands in the backend directory to start the server:
-
 ```bash
 cd server
 go mod download
@@ -27,11 +24,12 @@ go run main.go serve
 ```
 
 Run the following commands in the frontend directory to start the app:
-
 ```bash
 cd client
 flutter run
 ```
+
+*Note: By default, the client will point to the production Pocketbase instance (fumble.dyscott.xyz). To change this, go into `client/lib/util/auth.dart` and change `pocketbase_url` to your local server/*
 
 ## How we Built it
 
