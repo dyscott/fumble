@@ -34,8 +34,8 @@ func main() {
 	app.OnBeforeServe().Add(func(e *core.ServeEvent) error {
 		e.Router.GET("/*", apis.StaticDirectoryHandler(os.DirFS("./pb_public/web"), false))
 
-		// Create a route for Linkin -> List made matches
-		e.Router.GET("/api/fumble/linkin", func(c echo.Context) error {
+		// Create a route for Matches -> List made matches
+		e.Router.GET("/api/fumble/matches", func(c echo.Context) error {
 			user, _ := c.Get(apis.ContextAuthRecordKey).(*models.Record)
 			id := user.GetString("id")
 
