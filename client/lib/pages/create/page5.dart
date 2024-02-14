@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fumble/common.dart';
-import 'package:fumble/home.dart';
 import 'package:provider/provider.dart';
 
-import '../../auth.dart';
+import '../../util/auth.dart';
+import '../../components/nav.dart';
+import '../../models/create.dart';
+import '../home.dart';
 
 class CreateProfilePage5 extends StatefulWidget {
   final CreateProfileModel model;
@@ -67,7 +68,7 @@ class _CreateProfilePage5State extends State<CreateProfilePage5> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
                     child: Text(
-                      'Get Started!',
+                      'Start Matching!',
                       style: TextStyle(
                         fontSize: 24.0,
                       ),

@@ -1,4 +1,4 @@
-module myapp
+module pb_fumble
 
 go 1.21.6
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../common.dart';
+import '../../components/nav.dart';
+import '../../models/create.dart';
 import 'page3.dart';
 
 class CreateProfilePage2 extends StatefulWidget {
@@ -29,20 +30,21 @@ class _CreateProfilePage2State extends State<CreateProfilePage2> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-                padding: EdgeInsets.only(bottom: 8.0),
-                child: Padding(
-                  padding: EdgeInsets.all(16.0), // Added padding to the text
-                  child: Center(
-                    child: Text(
-                      'What are you looking for?',
-                      style: TextStyle(
-                        fontSize: 36.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                )),
+            const Text(
+              'What are you looking for?',
+              style: TextStyle(
+                fontSize: 28.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            const Text(
+              'Select the course you need a partner for',
+              style: TextStyle(
+                fontSize: 18.0,
+              ),
+            ),
+            const SizedBox(height: 20.0),
             ...options
                 .map(
                   (List<String> option) => RadioListTile<String>(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fumble/common.dart';
 
+import '../../components/nav.dart';
+import '../../models/create.dart';
 import 'page5.dart';
 
 class CreateProfilePage4 extends StatefulWidget {

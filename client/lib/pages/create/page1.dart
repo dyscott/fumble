@@ -4,7 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../common.dart';
+import '../../components/nav.dart';
+import '../../models/create.dart';
 import 'page2.dart';
 
 class CreateProfilePage1 extends StatefulWidget {
@@ -38,6 +39,16 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
   @override
   Widget build(BuildContext context) {
     var model = widget.model;
+
+    ImageProvider<Object>? image;
+    if (model.avatar != null) {
+      if (kIsWeb) {
+        image = Image.network(model.avatar!.path).image;
+      } else {
+        image = FileImage(File(model.avatar!.path));
+      }
+    }
+
     return GestureDetector(
       onTap: () {
         // Dismiss the keyboard when the user taps outside the text field
@@ -54,6 +65,7 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
                       fontSize: 36.0,
                       fontWeight: FontWeight.bold,
                     )),
+                const SizedBox(height: 16),
                 const Text('Upload an avatar and enter your name',
                     style: TextStyle(
                       fontSize: 18.0,
@@ -64,11 +76,7 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
                   child: CircleAvatar(
                     backgroundColor: Colors.grey,
                     radius: 80,
-                    backgroundImage: model.avatar != null
-                        ? kIsWeb
-                            ? Image.network(model.avatar!.path).image
-                            : FileImage(File(model.avatar!.path))
-                        : null,
+                    backgroundImage: image,
                     child: model.avatar == null
                         ? const Icon(
                             Icons.add_a_photo,
@@ -81,12 +89,13 @@ class _CreateProfilePage1State extends State<CreateProfilePage1> {
                 const SizedBox(height: 20),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 40.0),
-                  child: TextField(
+                  child: TextFormField(
                     decoration: const InputDecoration(
                       hintText: 'Name',
                       border: OutlineInputBorder(),
                     ),
                     onChanged: updateName,
+                    initialValue: model.name,
                   ),
                 ),
               ],
