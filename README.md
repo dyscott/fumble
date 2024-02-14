@@ -14,6 +14,10 @@ Fumble facilitates connections between users and like-minded CS students to find
 Upon opening the app, users are presented with the option to log in via email or Discord, or to sign up. The sign-up process requests a name, biography, profile image, and banner. The home screen allows users to swipe through other profiles, with a left swipe indicating rejection and a right swipe indicating a match. Additionally, users have access to a profile editing page where they can modify their profile image, banner cover, name, and biography. The app also includes a messaging feature, enabling users to communicate with their matches.
 
 ## Usage
+### Hosted Demo
+Currently, a demo of Fumble is hosted at https://fumble.dyscott.xyz/
+
+### Self-Host
 Requires [Go](https://go.dev/doc/install) and [Flutter](https://docs.flutter.dev/get-started/install) to be installed. Be sure to configure Flutter for each platform you want to build for. As of now, we have only tested Web and iOS.
 
 Run the following commands in the backend directory to start the server:
@@ -29,7 +33,7 @@ cd client
 flutter run
 ```
 
-*Note: By default, the client will point to the production Pocketbase instance (fumble.dyscott.xyz). To change this, go into `client/lib/util/auth.dart` and change `pocketbase_url` to your local server/*
+*Note: By default, the client will point to our Pocketbase instance (fumble.dyscott.xyz). To change this, go into `client/lib/util/auth.dart` and change `pocketbase_url` to your local server*
 
 ## How we Built it
 
@@ -55,7 +59,7 @@ For the backend, we used Go and PocketBase. PocketBase implements several Backen
 
 We used PocketBase to store user data, including their name, biography, and courses they are seeking partners for. We also used PocketBase to store the matches between users and to facilitate messaging between users.
 
-The two microservice extensions we added to PocketBase were Wingman and Linkin. Wingman is a matching algorithm that matches users based on the courses they are seeking partners for and their profiles. Linkin provides complex queries to determine relations between users and manage the chat feature.
+On top of Pocketbase, we developed two additional endpoints which execute advanced SQL queries. The first one, `wingman`, is responsible for aggregating potential matches to be displayed to each user. In the future, this endpoint could be expanded to include a matchmaking algorithm. The second one, `matches`, is responsible for determining succesful matches (both users liked eachother) which are shown in the Chat menu.
 
 ## Challenges we ran into
 
@@ -70,5 +74,5 @@ The entire team was unfamiliar with Flutter before starting this project, so we 
 
 ## What's next for Fumble
 
-While we are satisfied with how Fumble came out, we recognize the potential for enhancements to elevate it even further. Our next steps include integrating a feedback form directly within the app. This will enable us to seamlessly gather valuable insights and suggestions from the community, allowing us to refine and optimize Fumble based on user input. Moreover, we envision enhancing the matchmaking algorithm by incorporating machine learning techniques. By training an AI model on user interactions—such as swipes to the right or left—we aim to make Fumble's matching system more intuitive and tailored to individual preferences. These improvements represent our commitment to continuous refinement, ensuring Fumble remains a dynamic and user-centric platform.
+While we are satisfied with how Fumble came out, we recognize the potential for enhancements to elevate it even further. Our next steps include integrating a feedback form directly within the app. This will enable us to seamlessly gather valuable insights and suggestions from the community, allowing us to refine and optimize Fumble based on user input. Moreover, we envision enhancing the matchmaking algorithm by incorporating machine learning techniques. By training an AI model on user interactions—such as swipes to the right or left-we aim to make Fumble's matching system more intuitive and tailored to individual preferences. These improvements represent our commitment to continuous refinement, ensuring Fumble remains a dynamic and user-centric platform.
 
