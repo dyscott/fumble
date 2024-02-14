@@ -33,7 +33,7 @@ class _CreateProfilePage2State extends State<CreateProfilePage2> {
             const Text(
               'What are you looking for?',
               style: TextStyle(
-                fontSize: 36.0,
+                fontSize: 28.0,
                 fontWeight: FontWeight.bold,
               ),
             ),

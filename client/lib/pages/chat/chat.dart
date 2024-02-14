@@ -70,8 +70,7 @@ class _ChatScreenState extends State<ChatScreen> {
           });
         }
       },
-      filter:
-          'author = "${widget.recipient.id}" && recipient = "${user.id}"',
+      filter: 'author = "${widget.recipient.id}" && recipient = "${user.id}"',
     );
 
     setState(() {
@@ -133,7 +132,11 @@ class _ChatScreenState extends State<ChatScreen> {
       body: Column(
         children: [
           loading
-              ? const CircularProgressIndicator()
+              ? const Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
               : ChatContents(chatHistory: chatHistory),
           BottomAppBar(
             child: Padding(

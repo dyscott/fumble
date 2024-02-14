@@ -1,66 +1,5 @@
 [
   {
-    "id": "wb6h3jjrcygp2fe",
-    "name": "messages",
-    "type": "base",
-    "system": false,
-    "schema": [
-      {
-        "system": false,
-        "id": "7kphnilu",
-        "name": "author",
-        "type": "relation",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {
-          "collectionId": "_pb_users_auth_",
-          "cascadeDelete": false,
-          "minSelect": null,
-          "maxSelect": 1,
-          "displayFields": null
-        }
-      },
-      {
-        "system": false,
-        "id": "vkf2xbqq",
-        "name": "recipient",
-        "type": "relation",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {
-          "collectionId": "_pb_users_auth_",
-          "cascadeDelete": false,
-          "minSelect": null,
-          "maxSelect": 1,
-          "displayFields": null
-        }
-      },
-      {
-        "system": false,
-        "id": "xc5upqhn",
-        "name": "contents",
-        "type": "text",
-        "required": false,
-        "presentable": false,
-        "unique": false,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      }
-    ],
-    "indexes": [],
-    "listRule": "@request.auth.id = author.id || @request.auth.id = recipient.id",
-    "viewRule": "@request.auth.id = author.id || @request.auth.id = recipient.id",
-    "createRule": "@request.auth.id = author.id",
-    "updateRule": null,
-    "deleteRule": null,
-    "options": {}
-  },
-  {
     "id": "4ml4p5t2zu8wyx3",
     "name": "matches",
     "type": "base",
@@ -127,6 +66,67 @@
     "options": {}
   },
   {
+    "id": "wb6h3jjrcygp2fe",
+    "name": "messages",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "system": false,
+        "id": "7kphnilu",
+        "name": "author",
+        "type": "relation",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "_pb_users_auth_",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": null
+        }
+      },
+      {
+        "system": false,
+        "id": "vkf2xbqq",
+        "name": "recipient",
+        "type": "relation",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "_pb_users_auth_",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": null
+        }
+      },
+      {
+        "system": false,
+        "id": "xc5upqhn",
+        "name": "contents",
+        "type": "text",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "@request.auth.id = author.id || @request.auth.id = recipient.id",
+    "viewRule": "@request.auth.id = author.id || @request.auth.id = recipient.id",
+    "createRule": "@request.auth.id = author.id",
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
+  },
+  {
     "id": "_pb_users_auth_",
     "name": "users",
     "type": "auth",
@@ -162,7 +162,9 @@
             "image/gif",
             "image/webp"
           ],
-          "thumbs": null,
+          "thumbs": [
+            "0x64"
+          ],
           "maxSelect": 1,
           "maxSize": 52428800,
           "protected": false
@@ -192,7 +194,9 @@
         "unique": false,
         "options": {
           "mimeTypes": [],
-          "thumbs": [],
+          "thumbs": [
+            "0x1024"
+          ],
           "maxSelect": 99,
           "maxSize": 52428800,
           "protected": false
