@@ -84,7 +84,7 @@ func main() {
 		Automigrate: false,
 	})
 
-	app.OnRecordBeforeUpdateRequest("matches").Add(func(e *core.RecordUpdateEvent) error {
+	app.OnRecordAfterUpdateRequest("matches").Add(func(e *core.RecordUpdateEvent) error {
 			record := e.Record
 			// If the match status is "like"
 			matchStatus := record.GetString("status") == "like" 
