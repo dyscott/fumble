@@ -18,6 +18,7 @@ type User struct {
 	ID              string `pocketbase:"id"`
 	Preference      string `pocketbase:"classes"`
 	profileComplete bool   `pocketbase:"profileComplete"`
+	ELO 					 int    `pocketbase:"elo"`
 }
 
 // Match represents the structure of the matches table
@@ -26,6 +27,27 @@ type Match struct {
 	Target string `pocketbase:"target"`
 	Status string `pocketbase:"status"`
 }
+
+func adjustELO(app *pocketbase.PocketBase, sourceId, targetId string, liked bool) {
+	// Get the user's ELO rating
+	userQuery := app.Dao().
+	RecordQuery("users").
+	Where(dbx.NewExp("id = {:id}", dbx.Params{"id": sourceId}))
+
+	user := &User{}
+	if err := userQuery.One(user); err != nil {
+		// Handle error
+	}
+
+	elo := user.ELO
+
+	
+	// Get the target's ELO rating
+	// Calculate the new ELO rating
+	// Update the user's ELO rating
+	// Update the target's ELO rating
+}
+
 
 func main() {
 	app := pocketbase.New()
