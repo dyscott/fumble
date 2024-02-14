@@ -1,5 +1,66 @@
 [
   {
+    "id": "wb6h3jjrcygp2fe",
+    "name": "messages",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "system": false,
+        "id": "7kphnilu",
+        "name": "author",
+        "type": "relation",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "_pb_users_auth_",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": null
+        }
+      },
+      {
+        "system": false,
+        "id": "vkf2xbqq",
+        "name": "recipient",
+        "type": "relation",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "collectionId": "_pb_users_auth_",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": null
+        }
+      },
+      {
+        "system": false,
+        "id": "xc5upqhn",
+        "name": "contents",
+        "type": "text",
+        "required": false,
+        "presentable": false,
+        "unique": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "@request.auth.id = author.id || @request.auth.id = recipient.id",
+    "viewRule": "@request.auth.id = author.id || @request.auth.id = recipient.id",
+    "createRule": "@request.auth.id = author.id",
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
+  },
+  {
     "id": "4ml4p5t2zu8wyx3",
     "name": "matches",
     "type": "base",
@@ -55,7 +116,9 @@
         }
       }
     ],
-    "indexes": [],
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_Tf0rwee` ON `matches` (\n  `author`,\n  `target`\n)"
+    ],
     "listRule": "author = @request.auth.id",
     "viewRule": "author = @request.auth.id",
     "createRule": "author = @request.auth.id",
@@ -101,7 +164,7 @@
           ],
           "thumbs": null,
           "maxSelect": 1,
-          "maxSize": 5242880,
+          "maxSize": 52428800,
           "protected": false
         }
       },
@@ -109,12 +172,14 @@
         "system": false,
         "id": "rox7nnad",
         "name": "bio",
-        "type": "editor",
+        "type": "text",
         "required": false,
         "presentable": false,
         "unique": false,
         "options": {
-          "convertUrls": false
+          "min": null,
+          "max": null,
+          "pattern": ""
         }
       },
       {

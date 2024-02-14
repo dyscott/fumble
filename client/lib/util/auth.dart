@@ -1,4 +1,5 @@
-import 'package:fetch_client/fetch_client.dart';
+// ignore: unused_import
+import 'pb.dart' if (dart.library.html) 'pb_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pocketbase/pocketbase.dart';
@@ -7,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 late PocketBase pb;
 
-const String pocketbase_url = 'http://127.0.0.1:8090';//'https://fumble.dyscott.xyz';
+const String pocketbase_url = 'https://fumble.dyscott.xyz';
 
 class AuthProvider extends ChangeNotifier {
   bool _loading = true;
@@ -29,12 +30,7 @@ class AuthProvider extends ChangeNotifier {
       initial: prefs.getString('pb_auth'),
     );
 
-    pb = PocketBase(
-      pocketbase_url,
-      authStore: store,
-      httpClientFactory:
-          kIsWeb ? () => FetchClient(mode: RequestMode.cors) : null,
-    );
+    pb = create_pb(pocketbase_url, store);
 
     pb.authStore.onChange.listen((event) {
       notifyListeners();
@@ -48,7 +44,6 @@ class AuthProvider extends ChangeNotifier {
   Future<void> signInDiscord() async {
     final res =
         await pb.collection('users').authWithOAuth2('discord', (url) async {
-      // or use something like flutter_custom_tabs to make the transitions between native and web content more seamless
       await launchUrl(url);
     });
     user = res.record;

@@ -11,24 +11,15 @@ import (
 	"github.com/pocketbase/pocketbase/apis"
 	"github.com/pocketbase/pocketbase/core"
 	"github.com/pocketbase/pocketbase/models"
+	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 )
-
-// User represents the structure of the users table
-type User struct {
-	ID              string `pocketbase:"id"`
-	Preference      string `pocketbase:"classes"`
-	profileComplete bool   `pocketbase:"profileComplete"`
-}
-
-// Match represents the structure of the matches table
-type Match struct {
-	Author string `pocketbase:"author"`
-	Target string `pocketbase:"target"`
-	Status string `pocketbase:"status"`
-}
 
 func main() {
 	app := pocketbase.New()
+
+	migratecmd.MustRegister(app, app.RootCmd, migratecmd.Config{
+		Automigrate: false,
+	})
 
 	// serves static files from the provided public dir (if exists)
 	app.OnBeforeServe().Add(func(e *core.ServeEvent) error {
@@ -41,60 +32,21 @@ func main() {
 
 			dao := app.Dao()
 
-			query := dao.
-				RecordQuery("matches").
-				AndWhere(dbx.NewExp("author = {:id} OR target = {:id}", dbx.Params{"id": id})).
-				AndWhere(dbx.NewExp("status = 'like'"))
-
-			records := []*models.Record{}
-			if err := query.All(&records); err != nil {
-				return c.JSON(http.StatusInternalServerError, err)
-			}
-
-			match_counts := make(map[string]int)
-
-			// Loop through the records and count the matches
-			for _, record := range records {
-				var match string
-				if record.GetString("author") == id {
-					match = record.GetString("target")
-				} else {
-					match = record.GetString("author")
-				}
-				// Add or increment the match count
-				if _, ok := match_counts[match]; ok {
-					match_counts[match]++
-				} else {
-					match_counts[match] = 1
-				}
-			}
-
-			// Create a list of matches
-			matches := make([]string, 0)
-			for match, count := range match_counts {
-				if count > 1 {
-					matches = append(matches, match)
-				}
-			}
-
-			// Query the users table for the matches
-			// Convert matches to []interface{}
-			interfaceSlice := make([]interface{}, len(matches))
-			for i, v := range matches {
-				interfaceSlice[i] = v
-			}
-
-			// Query the users table for the matches
-			user_query := dao.
+			// Build the query to find matches for the user
+			matchQuery := dao.
 				RecordQuery("users").
-				AndWhere(dbx.In("id", interfaceSlice...))
+				Where(dbx.Not(dbx.NewExp("users.id = {:id}", dbx.Params{"id": id}))).
+				LeftJoin("matches", dbx.NewExp("users.id = matches.author")).
+				AndWhere(dbx.NewExp("matches.status = 'like' AND matches.target = {:id}", dbx.Params{"id": id})).
+				AndWhere(dbx.Exists(dbx.NewExp("SELECT 1 from matches WHERE author= {:id} AND target = users.id AND status = 'like'", dbx.Params{"id": id})))
 
-			users := []*models.Record{}
-			if err := user_query.All(&users); err != nil {
+			// Get the matches
+			matches := []*models.Record{}
+			if err := matchQuery.All(&matches); err != nil {
 				return c.JSON(http.StatusInternalServerError, err)
 			}
 
-			return c.JSON(http.StatusOK, users)
+			return c.JSON(http.StatusOK, matches)
 		},
 		/* optional middlewares */)
 
@@ -104,77 +56,24 @@ func main() {
 			sourceId := user.GetString("id")
 
 			dao := app.Dao()
-			//db := dao.DB()
 
 			sourcePreference := user.GetString("classes")
 
-			// Define the query to get all potential matches
-			// potentialMatches := db.Select("users.id").
-			// 	From("users").
-			// 	LeftJoin("matches", dbx.And(dbx.NewExp("users.id = matches.target"), dbx.NewExp("matches.author = {:sourceId}", dbx.Params{"sourceId": sourceId}))).
-			// 	// Where(dbx.NewExp("matches.author IS NULL")).
-			// 	Where(dbx.Not(dbx.NewExp("users.id = {:sourceId}", dbx.Params{"sourceId": sourceId}))).
-			// 	AndWhere(dbx.NewExp("users.profileComplete = TRUE")).
-			// 	AndWhere(dbx.NewExp("users.classes = {:sourcePreference}", dbx.Params{"sourcePreference": sourcePreference}))
+			// Build the query to find potential matches
+			potentialMatchesQuery := dao.RecordQuery("users").
+				From("users").
+				Where(dbx.Not(dbx.NewExp("users.id = {:sourceId}", dbx.Params{"sourceId": sourceId}))).
+				AndWhere(dbx.NewExp("users.profileComplete = TRUE")).
+				AndWhere(dbx.NewExp("users.classes = {:sourcePreference}", dbx.Params{"sourcePreference": sourcePreference})).
+				AndWhere(dbx.NotExists(dbx.NewExp("SELECT 1 from matches WHERE (author = {:sourceId} AND target = users.id)", dbx.Params{"sourceId": sourceId})))
 
-			// // now return the potential matches as a JSON response
-			// rows, err := potentialMatches.Rows()
-			// if err != nil {
-			// 	log.Fatal(err)
-			// }
-			// defer rows.Close()
-
-			// var matches []string
-			// for rows.Next() {
-			// 	var match string
-			// 	rows.Scan(&match)
-			// 	matches = append(matches, match)
-			// }
-
-			// // Query the users table for the matches
-			// // Convert matches to []interface{}
-			// interfaceSlice := make([]interface{}, len(matches))
-			// for i, v := range matches {
-			// 	interfaceSlice[i] = v
-			// }
-
-			// // Query the users table for the matches
-			// user_query := dao.
-			potentialMatchesQuery := dao.
-				RecordQuery("users").
-				AndWhere(dbx.NewExp("id != {:id}", dbx.Params{"id": sourceId})).
-				AndWhere(dbx.NewExp("classes = {:classes}", dbx.Params{"classes": sourcePreference}))
-
+			// Get the potential matches
 			potentialMatches := []*models.Record{}
 			if err := potentialMatchesQuery.All(&potentialMatches); err != nil {
 				return c.JSON(http.StatusInternalServerError, err)
 			}
 
-			// Get the user's existing swipes (likes / rejects)
-			existingSwipesQuery := dao.
-				RecordQuery("matches").
-				AndWhere(dbx.NewExp("author = {:id}", dbx.Params{"id": sourceId}))
-
-			existingSwipes := []*models.Record{}
-			if err := existingSwipesQuery.All(&existingSwipes); err != nil {
-				return c.JSON(http.StatusInternalServerError, err)
-			}
-
-			// Create a map of existing swipes
-			existingSwipesMap := make(map[string]string)
-			for _, swipe := range existingSwipes {
-				existingSwipesMap[swipe.GetString("target")] = swipe.GetString("status")
-			}
-
-			// Filter out the existing swipes from the potential matches
-			filteredPotentialMatches := make([]*models.Record, 0)
-			for _, match := range potentialMatches {
-				if _, ok := existingSwipesMap[match.GetString("id")]; !ok {
-					filteredPotentialMatches = append(filteredPotentialMatches, match)
-				}
-			}
-
-			return c.JSON(200, filteredPotentialMatches)
+			return c.JSON(200, potentialMatches)
 		})
 
 		return nil
